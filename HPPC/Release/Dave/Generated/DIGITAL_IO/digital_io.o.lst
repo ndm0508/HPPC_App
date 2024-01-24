@@ -1,0 +1,57 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 23,1
+   4              	 .eabi_attribute 24,1
+   5              	 .eabi_attribute 25,1
+   6              	 .eabi_attribute 26,1
+   7              	 .eabi_attribute 30,2
+   8              	 .eabi_attribute 34,0
+   9              	 .eabi_attribute 18,4
+  10              	 .code 16
+  11              	 .file "digital_io.c"
+  12              	 .section .text.DIGITAL_IO_GetAppVersion,"ax",%progbits
+  13              	 .align 2
+  14              	 .global DIGITAL_IO_GetAppVersion
+  15              	 .code 16
+  16              	 .thumb_func
+  18              	DIGITAL_IO_GetAppVersion:
+  19 0000 0148     	 ldr r0,.L2
+  20 0002 82B0     	 sub sp,sp,#8
+  21 0004 02B0     	 add sp,sp,#8
+  22              	 
+  23 0006 7047     	 bx lr
+  24              	.L3:
+  25              	 .align 2
+  26              	.L2:
+  27 0008 04001200 	 .word 1179652
+  29              	 .section .text.DIGITAL_IO_Init,"ax",%progbits
+  30              	 .align 2
+  31              	 .global DIGITAL_IO_Init
+  32              	 .code 16
+  33              	 .thumb_func
+  35              	DIGITAL_IO_Init:
+  36 0000 10B5     	 push {r4,lr}
+  37 0002 041C     	 mov r4,r0
+  38 0004 017B     	 ldrb r1,[r0,#12]
+  39 0006 021D     	 add r2,r0,#4
+  40 0008 0068     	 ldr r0,[r0]
+  41 000a FFF7FEFF 	 bl XMC_GPIO_Init
+  42 000e 2068     	 ldr r0,[r4]
+  43 0010 217B     	 ldrb r1,[r4,#12]
+  44 0012 627B     	 ldrb r2,[r4,#13]
+  45 0014 FFF7FEFF 	 bl XMC_GPIO_SetHardwareControl
+  46              	 
+  47 0018 0020     	 mov r0,#0
+  48 001a 10BD     	 pop {r4,pc}
+  50              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 digital_io.c
+    {standard input}:13     .text.DIGITAL_IO_GetAppVersion:00000000 $t
+    {standard input}:18     .text.DIGITAL_IO_GetAppVersion:00000000 DIGITAL_IO_GetAppVersion
+    {standard input}:27     .text.DIGITAL_IO_GetAppVersion:00000008 $d
+    {standard input}:30     .text.DIGITAL_IO_Init:00000000 $t
+    {standard input}:35     .text.DIGITAL_IO_Init:00000000 DIGITAL_IO_Init
+
+UNDEFINED SYMBOLS
+XMC_GPIO_Init
+XMC_GPIO_SetHardwareControl

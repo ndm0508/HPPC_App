@@ -1,0 +1,86 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 23,1
+   4              	 .eabi_attribute 24,1
+   5              	 .eabi_attribute 25,1
+   6              	 .eabi_attribute 26,1
+   7              	 .eabi_attribute 30,2
+   8              	 .eabi_attribute 34,0
+   9              	 .eabi_attribute 18,4
+  10              	 .code 16
+  11              	 .file "global_adc_conf.c"
+  12              	 .global GLOBAL_ADC_0
+  13              	 .global group_1_config
+  14              	 .global group_0_config
+  15              	 .global global_config
+  16              	 .global group_init_handle1
+  17              	 .global group_init_handle0
+  18              	 .section .rodata.group_init_handle0,"a",%progbits
+  19              	 .align 2
+  22              	group_init_handle0:
+  23 0000 00000000 	 .space 20
+  23      00000000 
+  23      00000000 
+  23      00000000 
+  23      00000000 
+  24              	 .section .rodata.group_init_handle1,"a",%progbits
+  25              	 .align 2
+  28              	group_init_handle1:
+  29 0000 00000000 	 .space 20
+  29      00000000 
+  29      00000000 
+  29      00000000 
+  29      00000000 
+  30              	 .section .data.group_0_config,"aw",%progbits
+  31              	 .align 2
+  34              	group_0_config:
+  35 0000 00040348 	 .word 1208157184
+  36 0004 00000000 	 .word group_init_handle0
+  37 0008 01       	 .byte 1
+  38 0009 02       	 .byte 2
+  39 000a 0000     	 .space 2
+  40              	 .section .data.GLOBAL_ADC_0,"aw",%progbits
+  41              	 .align 2
+  44              	GLOBAL_ADC_0:
+  45 0000 00000000 	 .word group_0_config
+  46 0004 00000000 	 .word group_1_config
+  47 0008 00000000 	 .word global_config
+  48 000c 00000348 	 .word 1208156160
+  49 0010 00400348 	 .word 1208172544
+  50 0014 00000000 	 .space 4
+  51 0018 02       	 .byte 2
+  52 0019 01       	 .byte 1
+  53 001a 0000     	 .space 2
+  54              	 .section .data.group_1_config,"aw",%progbits
+  55              	 .align 2
+  58              	group_1_config:
+  59 0000 00080348 	 .word 1208158208
+  60 0004 00000000 	 .word group_init_handle1
+  61 0008 01       	 .byte 1
+  62 0009 02       	 .byte 2
+  63 000a 0000     	 .space 2
+  64              	 .section .rodata.global_config,"a",%progbits
+  65              	 .align 2
+  68              	global_config:
+  69 0000 00000000 	 .space 24
+  69      00000000 
+  69      00000000 
+  69      00000000 
+  69      00000000 
+  70              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 global_adc_conf.c
+    {standard input}:44     .data.GLOBAL_ADC_0:00000000 GLOBAL_ADC_0
+    {standard input}:58     .data.group_1_config:00000000 group_1_config
+    {standard input}:34     .data.group_0_config:00000000 group_0_config
+    {standard input}:68     .rodata.global_config:00000000 global_config
+    {standard input}:28     .rodata.group_init_handle1:00000000 group_init_handle1
+    {standard input}:22     .rodata.group_init_handle0:00000000 group_init_handle0
+    {standard input}:19     .rodata.group_init_handle0:00000000 $d
+    {standard input}:25     .rodata.group_init_handle1:00000000 $d
+    {standard input}:31     .data.group_0_config:00000000 $d
+    {standard input}:41     .data.GLOBAL_ADC_0:00000000 $d
+    {standard input}:55     .data.group_1_config:00000000 $d
+    {standard input}:65     .rodata.global_config:00000000 $d
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,16 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 23,1
+   4              	 .eabi_attribute 24,1
+   5              	 .eabi_attribute 25,1
+   6              	 .eabi_attribute 26,1
+   7              	 .eabi_attribute 30,2
+   8              	 .eabi_attribute 34,0
+   9              	 .eabi_attribute 18,4
+  10              	 .code 16
+  11              	 .file "Fixed_point_math.c"
+  12              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 Fixed_point_math.c
+
+NO UNDEFINED SYMBOLS

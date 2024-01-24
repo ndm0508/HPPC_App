@@ -1,0 +1,173 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 23,1
+   4              	 .eabi_attribute 24,1
+   5              	 .eabi_attribute 25,1
+   6              	 .eabi_attribute 26,1
+   7              	 .eabi_attribute 30,2
+   8              	 .eabi_attribute 34,0
+   9              	 .eabi_attribute 18,4
+  10              	 .code 16
+  11              	 .file "adc_measurement_conf.c"
+  12              	 .global ADC_MEASUREMENT_0
+  13              	 .global backgnd_config
+  14              	 .global ADC_MEASUREMENT_channel_array
+  15              	 .global ADC_MEASUREMENT_Vin_sens_handle
+  16              	 .global Vin_sens_res_config
+  17              	 .global Vin_sens_ch_config
+  18              	 .global ADC_MEASUREMENT_Ibat_sens_handle
+  19              	 .global Ibat_sens_res_config
+  20              	 .global Ibat_sens_ch_config
+  21              	 .global ADC_MEASUREMENT_Vbat_sens_handle
+  22              	 .global Vbat_sens_res_config
+  23              	 .global Vbat_sens_ch_config
+  24              	 .global global_iclass_config
+  25              	 .section .data.ADC_MEASUREMENT_0,"aw",%progbits
+  26              	 .align 2
+  29              	ADC_MEASUREMENT_0:
+  30 0000 00000000 	 .word ADC_MEASUREMENT_channel_array
+  31 0004 00000000 	 .word backgnd_config
+  32 0008 00000000 	 .word global_iclass_config
+  33 000c 00000000 	 .word GLOBAL_ADC_0
+  34 0010 00000000 	 .word 0
+  35 0014 00000000 	 .word 0
+  36 0018 02       	 .byte 2
+  37 0019 04       	 .byte 4
+  38 001a 01       	 .byte 1
+  39 001b 00       	 .space 1
+  40              	 .section .data.Vbat_sens_ch_config,"aw",%progbits
+  41              	 .align 2
+  44              	Vbat_sens_ch_config:
+  45 0000 02       	 .byte 2
+  46 0001 00       	 .byte 0
+  47 0002 2C       	 .byte 44
+  48 0003 00       	 .byte 0
+  49 0004 00000000 	 .word 0
+  50 0008 00000000 	 .space 4
+  51 000c 00       	 .byte 0
+  52 000d 03       	 .byte 3
+  53 000e 0000     	 .space 2
+  54              	 .section .rodata.backgnd_config,"a",%progbits
+  55              	 .align 2
+  58              	backgnd_config:
+  59 0000 05       	 .byte 5
+  60 0001 000000   	 .space 3
+  61 0004 00       	 .space 1
+  62 0005 00       	 .byte 0
+  63 0006 00       	 .byte 0
+  64 0007 00       	 .byte 0
+  65 0008 00       	 .byte 0
+  66 0009 000000   	 .space 3
+  67              	 .section .data.Vin_sens_ch_config,"aw",%progbits
+  68              	 .align 2
+  71              	Vin_sens_ch_config:
+  72 0000 02       	 .byte 2
+  73 0001 00       	 .byte 0
+  74 0002 2A       	 .byte 42
+  75 0003 00       	 .byte 0
+  76 0004 00000000 	 .word 0
+  77 0008 00000000 	 .space 4
+  78 000c 00       	 .byte 0
+  79 000d FF       	 .byte -1
+  80 000e 0000     	 .space 2
+  81              	 .section .bss.Ibat_sens_res_config,"aw",%nobits
+  82              	 .align 2
+  85              	Ibat_sens_res_config:
+  86 0000 00000000 	 .space 4
+  87              	 .section .bss.Vbat_sens_res_config,"aw",%nobits
+  88              	 .align 2
+  91              	Vbat_sens_res_config:
+  92 0000 00000000 	 .space 4
+  93              	 .section .data.ADC_MEASUREMENT_Vbat_sens_handle,"aw",%progbits
+  94              	 .align 2
+  97              	ADC_MEASUREMENT_Vbat_sens_handle:
+  98 0000 00000000 	 .word Vbat_sens_ch_config
+  99 0004 00000000 	 .word Vbat_sens_res_config
+ 100 0008 00040348 	 .word 1208157184
+ 101 000c 00000000 	 .word ANALOG_IO_0
+ 102 0010 00       	 .byte 0
+ 103 0011 01       	 .byte 1
+ 104 0012 0000     	 .space 2
+ 105              	 .section .rodata.global_iclass_config,"a",%progbits
+ 106              	 .align 2
+ 109              	global_iclass_config:
+ 110 0000 02       	 .byte 2
+ 111 0001 00       	 .byte 0
+ 112 0002 0000     	 .space 2
+ 113              	 .section .bss.Vin_sens_res_config,"aw",%nobits
+ 114              	 .align 2
+ 117              	Vin_sens_res_config:
+ 118 0000 00000000 	 .space 4
+ 119              	 .section .data.ADC_MEASUREMENT_Vin_sens_handle,"aw",%progbits
+ 120              	 .align 2
+ 123              	ADC_MEASUREMENT_Vin_sens_handle:
+ 124 0000 00000000 	 .word Vin_sens_ch_config
+ 125 0004 00000000 	 .word Vin_sens_res_config
+ 126 0008 00040348 	 .word 1208157184
+ 127 000c 00000000 	 .word ANALOG_IO_2
+ 128 0010 00       	 .byte 0
+ 129 0011 00       	 .byte 0
+ 130 0012 0000     	 .space 2
+ 131              	 .section .data.Ibat_sens_ch_config,"aw",%progbits
+ 132              	 .align 2
+ 135              	Ibat_sens_ch_config:
+ 136 0000 02       	 .byte 2
+ 137 0001 00       	 .byte 0
+ 138 0002 2B       	 .byte 43
+ 139 0003 00       	 .byte 0
+ 140 0004 00000000 	 .word 0
+ 141 0008 00000000 	 .space 4
+ 142 000c 00       	 .byte 0
+ 143 000d FF       	 .byte -1
+ 144 000e 0000     	 .space 2
+ 145              	 .section .data.ADC_MEASUREMENT_Ibat_sens_handle,"aw",%progbits
+ 146              	 .align 2
+ 149              	ADC_MEASUREMENT_Ibat_sens_handle:
+ 150 0000 00000000 	 .word Ibat_sens_ch_config
+ 151 0004 00000000 	 .word Ibat_sens_res_config
+ 152 0008 00040348 	 .word 1208157184
+ 153 000c 00000000 	 .word ANALOG_IO_1
+ 154 0010 00       	 .byte 0
+ 155 0011 04       	 .byte 4
+ 156 0012 0000     	 .space 2
+ 157              	 .section .data.ADC_MEASUREMENT_channel_array,"aw",%progbits
+ 158              	 .align 2
+ 161              	ADC_MEASUREMENT_channel_array:
+ 162 0000 00000000 	 .word ADC_MEASUREMENT_Vbat_sens_handle
+ 163 0004 00000000 	 .word ADC_MEASUREMENT_Ibat_sens_handle
+ 164 0008 00000000 	 .word ADC_MEASUREMENT_Vin_sens_handle
+ 165              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 adc_measurement_conf.c
+    {standard input}:29     .data.ADC_MEASUREMENT_0:00000000 ADC_MEASUREMENT_0
+    {standard input}:58     .rodata.backgnd_config:00000000 backgnd_config
+    {standard input}:161    .data.ADC_MEASUREMENT_channel_array:00000000 ADC_MEASUREMENT_channel_array
+    {standard input}:123    .data.ADC_MEASUREMENT_Vin_sens_handle:00000000 ADC_MEASUREMENT_Vin_sens_handle
+    {standard input}:117    .bss.Vin_sens_res_config:00000000 Vin_sens_res_config
+    {standard input}:71     .data.Vin_sens_ch_config:00000000 Vin_sens_ch_config
+    {standard input}:149    .data.ADC_MEASUREMENT_Ibat_sens_handle:00000000 ADC_MEASUREMENT_Ibat_sens_handle
+    {standard input}:85     .bss.Ibat_sens_res_config:00000000 Ibat_sens_res_config
+    {standard input}:135    .data.Ibat_sens_ch_config:00000000 Ibat_sens_ch_config
+    {standard input}:97     .data.ADC_MEASUREMENT_Vbat_sens_handle:00000000 ADC_MEASUREMENT_Vbat_sens_handle
+    {standard input}:91     .bss.Vbat_sens_res_config:00000000 Vbat_sens_res_config
+    {standard input}:44     .data.Vbat_sens_ch_config:00000000 Vbat_sens_ch_config
+    {standard input}:109    .rodata.global_iclass_config:00000000 global_iclass_config
+    {standard input}:26     .data.ADC_MEASUREMENT_0:00000000 $d
+    {standard input}:41     .data.Vbat_sens_ch_config:00000000 $d
+    {standard input}:55     .rodata.backgnd_config:00000000 $d
+    {standard input}:68     .data.Vin_sens_ch_config:00000000 $d
+    {standard input}:82     .bss.Ibat_sens_res_config:00000000 $d
+    {standard input}:88     .bss.Vbat_sens_res_config:00000000 $d
+    {standard input}:94     .data.ADC_MEASUREMENT_Vbat_sens_handle:00000000 $d
+    {standard input}:106    .rodata.global_iclass_config:00000000 $d
+    {standard input}:114    .bss.Vin_sens_res_config:00000000 $d
+    {standard input}:120    .data.ADC_MEASUREMENT_Vin_sens_handle:00000000 $d
+    {standard input}:132    .data.Ibat_sens_ch_config:00000000 $d
+    {standard input}:146    .data.ADC_MEASUREMENT_Ibat_sens_handle:00000000 $d
+    {standard input}:158    .data.ADC_MEASUREMENT_channel_array:00000000 $d
+
+UNDEFINED SYMBOLS
+GLOBAL_ADC_0
+ANALOG_IO_0
+ANALOG_IO_2
+ANALOG_IO_1

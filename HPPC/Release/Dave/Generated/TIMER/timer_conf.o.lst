@@ -1,0 +1,77 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 23,1
+   4              	 .eabi_attribute 24,1
+   5              	 .eabi_attribute 25,1
+   6              	 .eabi_attribute 26,1
+   7              	 .eabi_attribute 30,2
+   8              	 .eabi_attribute 34,0
+   9              	 .eabi_attribute 18,4
+  10              	 .code 16
+  11              	 .file "timer_conf.c"
+  12              	 .global MEASURE_TIMER
+  13              	 .global MEASURE_TIMER_config
+  14              	 .global ZOH_TIMER
+  15              	 .global ZOH_TIMER_config
+  16              	 .section .data.MEASURE_TIMER,"aw",%progbits
+  17              	 .align 2
+  20              	MEASURE_TIMER:
+  21 0000 10270000 	 .word 10000
+  22 0004 0038FFC7 	 .word -939575296
+  23 0008 0A000000 	 .word 10
+  24 000c 50000000 	 .word 80
+  25 0010 00000000 	 .word GLOBAL_CCU4_0
+  26 0014 00020448 	 .word 1208222208
+  27 0018 01       	 .byte 1
+  28 0019 000000   	 .space 3
+  29 001c 00000000 	 .word MEASURE_TIMER_config
+  30 0020 00       	 .byte 0
+  31 0021 00       	 .byte 0
+  32 0022 FF18     	 .short 6399
+  33 0024 01       	 .byte 1
+  34 0025 00       	 .byte 0
+  35 0026 00       	 .byte 0
+  36 0027 00       	 .space 1
+  37              	 .section .bss.MEASURE_TIMER_config,"aw",%nobits
+  38              	 .align 2
+  41              	MEASURE_TIMER_config:
+  42 0000 00000000 	 .space 8
+  42      00000000 
+  43              	 .section .data.ZOH_TIMER,"aw",%progbits
+  44              	 .align 2
+  47              	ZOH_TIMER:
+  48 0000 D0070000 	 .word 2000
+  49 0004 0038FFC7 	 .word -939575296
+  50 0008 0A000000 	 .word 10
+  51 000c 05000000 	 .word 5
+  52 0010 00000000 	 .word GLOBAL_CCU4_0
+  53 0014 00010448 	 .word 1208221952
+  54 0018 00       	 .byte 0
+  55 0019 000000   	 .space 3
+  56 001c 00000000 	 .word ZOH_TIMER_config
+  57 0020 00       	 .byte 0
+  58 0021 00       	 .byte 0
+  59 0022 FF04     	 .short 1279
+  60 0024 00       	 .byte 0
+  61 0025 01       	 .byte 1
+  62 0026 00       	 .byte 0
+  63 0027 00       	 .space 1
+  64              	 .section .bss.ZOH_TIMER_config,"aw",%nobits
+  65              	 .align 2
+  68              	ZOH_TIMER_config:
+  69 0000 00000000 	 .space 8
+  69      00000000 
+  70              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 timer_conf.c
+    {standard input}:20     .data.MEASURE_TIMER:00000000 MEASURE_TIMER
+    {standard input}:41     .bss.MEASURE_TIMER_config:00000000 MEASURE_TIMER_config
+    {standard input}:47     .data.ZOH_TIMER:00000000 ZOH_TIMER
+    {standard input}:68     .bss.ZOH_TIMER_config:00000000 ZOH_TIMER_config
+    {standard input}:17     .data.MEASURE_TIMER:00000000 $d
+    {standard input}:38     .bss.MEASURE_TIMER_config:00000000 $d
+    {standard input}:44     .data.ZOH_TIMER:00000000 $d
+    {standard input}:65     .bss.ZOH_TIMER_config:00000000 $d
+
+UNDEFINED SYMBOLS
+GLOBAL_CCU4_0

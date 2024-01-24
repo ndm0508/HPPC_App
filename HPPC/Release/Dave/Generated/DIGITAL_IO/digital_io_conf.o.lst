@@ -1,0 +1,42 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 23,1
+   4              	 .eabi_attribute 24,1
+   5              	 .eabi_attribute 25,1
+   6              	 .eabi_attribute 26,1
+   7              	 .eabi_attribute 30,2
+   8              	 .eabi_attribute 34,0
+   9              	 .eabi_attribute 18,4
+  10              	 .code 16
+  11              	 .file "digital_io_conf.c"
+  12              	 .global RELAY_OUT_8
+  13              	 .global RELAY_IN_12
+  14              	 .section .rodata.RELAY_OUT_8,"a",%progbits
+  15              	 .align 2
+  18              	RELAY_OUT_8:
+  19 0000 00000440 	 .word 1074003968
+  20 0004 80       	 .byte -128
+  21 0005 000000   	 .space 3
+  22 0008 00000100 	 .word 65536
+  23 000c 05       	 .byte 5
+  24 000d 00       	 .byte 0
+  25 000e 0000     	 .space 2
+  26              	 .section .rodata.RELAY_IN_12,"a",%progbits
+  27              	 .align 2
+  30              	RELAY_IN_12:
+  31 0000 00000440 	 .word 1074003968
+  32 0004 80       	 .byte -128
+  33 0005 000000   	 .space 3
+  34 0008 00000100 	 .word 65536
+  35 000c 09       	 .byte 9
+  36 000d 00       	 .byte 0
+  37 000e 0000     	 .space 2
+  38              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 digital_io_conf.c
+    {standard input}:18     .rodata.RELAY_OUT_8:00000000 RELAY_OUT_8
+    {standard input}:30     .rodata.RELAY_IN_12:00000000 RELAY_IN_12
+    {standard input}:15     .rodata.RELAY_OUT_8:00000000 $d
+    {standard input}:27     .rodata.RELAY_IN_12:00000000 $d
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,495 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 23,1
+   4              	 .eabi_attribute 24,1
+   5              	 .eabi_attribute 25,1
+   6              	 .eabi_attribute 26,1
+   7              	 .eabi_attribute 30,2
+   8              	 .eabi_attribute 34,0
+   9              	 .eabi_attribute 18,4
+  10              	 .code 16
+  11              	 .file "timer.c"
+  12              	 .section .text.TIMER_GetAppVersion,"ax",%progbits
+  13              	 .align 2
+  14              	 .global TIMER_GetAppVersion
+  15              	 .code 16
+  16              	 .thumb_func
+  18              	TIMER_GetAppVersion:
+  19 0000 0148     	 ldr r0,.L2
+  20 0002 82B0     	 sub sp,sp,#8
+  21 0004 02B0     	 add sp,sp,#8
+  22              	 
+  23 0006 7047     	 bx lr
+  24              	.L3:
+  25              	 .align 2
+  26              	.L2:
+  27 0008 04010C00 	 .word 786692
+  29              	 .section .text.TIMER_Init,"ax",%progbits
+  30              	 .align 2
+  31              	 .global TIMER_Init
+  32              	 .code 16
+  33              	 .thumb_func
+  35              	TIMER_Init:
+  36 0000 F8B5     	 push {r3,r4,r5,r6,r7,lr}
+  37 0002 2623     	 mov r3,#38
+  38 0004 C35C     	 ldrb r3,[r0,r3]
+  39 0006 0025     	 mov r5,#0
+  40 0008 002B     	 cmp r3,#0
+  41 000a 03D1     	 bne .L5
+  42 000c 2133     	 add r3,r3,#33
+  43 000e C65C     	 ldrb r6,[r0,r3]
+  44 0010 002E     	 cmp r6,#0
+  45 0012 01D0     	 beq .L15
+  46              	.L5:
+  47 0014 281C     	 mov r0,r5
+  48              	 
+  49 0016 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+  50              	.L15:
+  51 0018 0127     	 mov r7,#1
+  52 001a 041C     	 mov r4,r0
+  53 001c 0069     	 ldr r0,[r0,#16]
+  54 001e FFF7FEFF 	 bl GLOBAL_CCU4_Init
+  55 0022 391C     	 mov r1,r7
+  56 0024 2369     	 ldr r3,[r4,#16]
+  57 0026 051C     	 mov r5,r0
+  58 0028 9A68     	 ldr r2,[r3,#8]
+  59 002a 237E     	 ldrb r3,[r4,#24]
+  60 002c 6069     	 ldr r0,[r4,#20]
+  61 002e 9940     	 lsl r1,r1,r3
+  62 0030 D160     	 str r1,[r2,#12]
+  63 0032 E169     	 ldr r1,[r4,#28]
+  64 0034 FFF7FEFF 	 bl XMC_CCU4_SLICE_CompareInit
+  65 0038 638C     	 ldrh r3,[r4,#34]
+  66 003a 6069     	 ldr r0,[r4,#20]
+  67 003c E268     	 ldr r2,[r4,#12]
+  68 003e 4363     	 str r3,[r0,#52]
+  69 0040 2369     	 ldr r3,[r4,#16]
+  70 0042 C663     	 str r6,[r0,#60]
+  71 0044 9B68     	 ldr r3,[r3,#8]
+  72 0046 1A61     	 str r2,[r3,#16]
+  73 0048 2523     	 mov r3,#37
+  74 004a E35C     	 ldrb r3,[r4,r3]
+  75 004c 002B     	 cmp r3,#0
+  76 004e 0AD1     	 bne .L16
+  77              	.L6:
+  78 0050 0223     	 mov r3,#2
+  79 0052 2622     	 mov r2,#38
+  80 0054 0361     	 str r3,[r0,#16]
+  81 0056 013B     	 sub r3,r3,#1
+  82 0058 A354     	 strb r3,[r4,r2]
+  83 005a 023A     	 sub r2,r2,#2
+  84 005c A25C     	 ldrb r2,[r4,r2]
+  85 005e 002A     	 cmp r2,#0
+  86 0060 D8D0     	 beq .L5
+  87 0062 C360     	 str r3,[r0,#12]
+  88 0064 D6E7     	 b .L5
+  89              	.L16:
+  90 0066 2023     	 mov r3,#32
+  91 0068 0021     	 mov r1,#0
+  92 006a E25C     	 ldrb r2,[r4,r3]
+  93 006c FFF7FEFF 	 bl XMC_CCU4_SLICE_SetInterruptNode
+  94 0070 A423     	 mov r3,#164
+  95 0072 6069     	 ldr r0,[r4,#20]
+  96 0074 C258     	 ldr r2,[r0,r3]
+  97 0076 1743     	 orr r7,r2
+  98 0078 C750     	 str r7,[r0,r3]
+  99 007a E9E7     	 b .L6
+ 101              	 .section .text.TIMER_Start,"ax",%progbits
+ 102              	 .align 2
+ 103              	 .global TIMER_Start
+ 104              	 .code 16
+ 105              	 .thumb_func
+ 107              	TIMER_Start:
+ 108 0000 2622     	 mov r2,#38
+ 109 0002 825C     	 ldrb r2,[r0,r2]
+ 110 0004 031C     	 mov r3,r0
+ 111 0006 0120     	 mov r0,#1
+ 112 0008 002A     	 cmp r2,#0
+ 113 000a 07D0     	 beq .L18
+ 114 000c 2122     	 mov r2,#33
+ 115 000e 9A5C     	 ldrb r2,[r3,r2]
+ 116 0010 0020     	 mov r0,#0
+ 117 0012 002A     	 cmp r2,#0
+ 118 0014 02D1     	 bne .L18
+ 119 0016 5B69     	 ldr r3,[r3,#20]
+ 120 0018 0132     	 add r2,r2,#1
+ 121 001a DA60     	 str r2,[r3,#12]
+ 122              	.L18:
+ 123              	 
+ 124 001c 7047     	 bx lr
+ 126 001e C046     	 .section .text.TIMER_Stop,"ax",%progbits
+ 127              	 .align 2
+ 128              	 .global TIMER_Stop
+ 129              	 .code 16
+ 130              	 .thumb_func
+ 132              	TIMER_Stop:
+ 133 0000 2122     	 mov r2,#33
+ 134 0002 825C     	 ldrb r2,[r0,r2]
+ 135 0004 031C     	 mov r3,r0
+ 136 0006 0120     	 mov r0,#1
+ 137 0008 002A     	 cmp r2,#0
+ 138 000a 00D0     	 beq .L29
+ 139              	.L23:
+ 140              	 
+ 141 000c 7047     	 bx lr
+ 142              	.L29:
+ 143 000e 5969     	 ldr r1,[r3,#20]
+ 144 0010 8A68     	 ldr r2,[r1,#8]
+ 145 0012 1042     	 tst r0,r2
+ 146 0014 FAD0     	 beq .L23
+ 147 0016 2622     	 mov r2,#38
+ 148 0018 9B5C     	 ldrb r3,[r3,r2]
+ 149 001a 002B     	 cmp r3,#0
+ 150 001c F6D0     	 beq .L23
+ 151 001e 0861     	 str r0,[r1,#16]
+ 152 0020 0020     	 mov r0,#0
+ 153 0022 F3E7     	 b .L23
+ 155              	 .section .text.TIMER_GetTimerStatus,"ax",%progbits
+ 156              	 .align 2
+ 157              	 .global TIMER_GetTimerStatus
+ 158              	 .code 16
+ 159              	 .thumb_func
+ 161              	TIMER_GetTimerStatus:
+ 162 0000 2122     	 mov r2,#33
+ 163 0002 825C     	 ldrb r2,[r0,r2]
+ 164 0004 031C     	 mov r3,r0
+ 165 0006 0020     	 mov r0,#0
+ 166 0008 002A     	 cmp r2,#0
+ 167 000a 03D1     	 bne .L31
+ 168 000c 5B69     	 ldr r3,[r3,#20]
+ 169 000e 0130     	 add r0,r0,#1
+ 170 0010 9B68     	 ldr r3,[r3,#8]
+ 171 0012 1840     	 and r0,r3
+ 172              	.L31:
+ 173              	 
+ 174 0014 7047     	 bx lr
+ 176              	 .global __aeabi_lmul
+ 177              	 .global __aeabi_uldivmod
+ 178 0016 C046     	 .section .text.TIMER_SetTimeInterval,"ax",%progbits
+ 179              	 .align 2
+ 180              	 .global TIMER_SetTimeInterval
+ 181              	 .code 16
+ 182              	 .thumb_func
+ 184              	TIMER_SetTimeInterval:
+ 185 0000 F8B5     	 push {r3,r4,r5,r6,r7,lr}
+ 186 0002 2123     	 mov r3,#33
+ 187 0004 C75C     	 ldrb r7,[r0,r3]
+ 188 0006 002F     	 cmp r7,#0
+ 189 0008 46D0     	 beq .L49
+ 190              	.L34:
+ 191 000a 8268     	 ldr r2,[r0,#8]
+ 192 000c 0123     	 mov r3,#1
+ 193 000e 8A42     	 cmp r2,r1
+ 194 0010 40D8     	 bhi .L35
+ 195 0012 4568     	 ldr r5,[r0,#4]
+ 196 0014 A942     	 cmp r1,r5
+ 197 0016 3DD8     	 bhi .L35
+ 198 0018 EB0B     	 lsr r3,r5,#15
+ 199 001a 9942     	 cmp r1,r3
+ 200 001c 49D9     	 bls .L45
+ 201 001e 0023     	 mov r3,#0
+ 202 0020 0E26     	 mov r6,#14
+ 203              	.L37:
+ 204 0022 2A1C     	 mov r2,r5
+ 205 0024 5C1C     	 add r4,r3,#1
+ 206 0026 F31A     	 sub r3,r6,r3
+ 207 0028 DA40     	 lsr r2,r2,r3
+ 208 002a 231C     	 mov r3,r4
+ 209 002c 9142     	 cmp r1,r2
+ 210 002e F8D8     	 bhi .L37
+ 211              	.L36:
+ 212 0030 0123     	 mov r3,#1
+ 213 0032 002F     	 cmp r7,#0
+ 214 0034 2ED1     	 bne .L35
+ 215 0036 0369     	 ldr r3,[r0,#16]
+ 216 0038 051C     	 mov r5,r0
+ 217 003a C069     	 ldr r0,[r0,#28]
+ 218 003c 1A68     	 ldr r2,[r3]
+ 219 003e 0379     	 ldrb r3,[r0,#4]
+ 220 0040 0F37     	 add r7,r7,#15
+ 221 0042 E6B2     	 uxtb r6,r4
+ 222 0044 BB43     	 bic r3,r7
+ 223 0046 3C40     	 and r4,r7
+ 224 0048 2343     	 orr r3,r4
+ 225 004a 0371     	 strb r3,[r0,#4]
+ 226 004c 081C     	 mov r0,r1
+ 227 004e 0023     	 mov r3,#0
+ 228 0050 0021     	 mov r1,#0
+ 229 0052 FFF7FEFF 	 bl __aeabi_lmul
+ 230 0056 2023     	 mov r3,#32
+ 231 0058 5B42     	 neg r3,r3
+ 232 005a E318     	 add r3,r4,r3
+ 233 005c 22D4     	 bmi .L38
+ 234 005e 081C     	 mov r0,r1
+ 235 0060 D840     	 lsr r0,r0,r3
+ 236              	.L39:
+ 237 0062 E140     	 lsr r1,r1,r4
+ 238 0064 144A     	 ldr r2,.L50
+ 239 0066 0023     	 mov r3,#0
+ 240 0068 FFF7FEFF 	 bl __aeabi_uldivmod
+ 241 006c 80B2     	 uxth r0,r0
+ 242 006e 0128     	 cmp r0,#1
+ 243 0070 00D9     	 bls .L48
+ 244 0072 0138     	 sub r0,r0,#1
+ 245              	.L48:
+ 246 0074 0F21     	 mov r1,#15
+ 247 0076 6884     	 strh r0,[r5,#34]
+ 248 0078 3140     	 and r1,r6
+ 249 007a 6869     	 ldr r0,[r5,#20]
+ 250 007c FFF7FEFF 	 bl XMC_CCU4_SLICE_SetPrescaler
+ 251 0080 6B69     	 ldr r3,[r5,#20]
+ 252 0082 6A8C     	 ldrh r2,[r5,#34]
+ 253 0084 5A63     	 str r2,[r3,#52]
+ 254 0086 0022     	 mov r2,#0
+ 255 0088 DA63     	 str r2,[r3,#60]
+ 256 008a 2B69     	 ldr r3,[r5,#16]
+ 257 008c EA68     	 ldr r2,[r5,#12]
+ 258 008e 9B68     	 ldr r3,[r3,#8]
+ 259 0090 1A61     	 str r2,[r3,#16]
+ 260 0092 0023     	 mov r3,#0
+ 261              	.L35:
+ 262 0094 181C     	 mov r0,r3
+ 263              	 
+ 264 0096 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 265              	.L49:
+ 266 0098 4369     	 ldr r3,[r0,#20]
+ 267 009a 9A68     	 ldr r2,[r3,#8]
+ 268 009c 0123     	 mov r3,#1
+ 269 009e D207     	 lsl r2,r2,#31
+ 270 00a0 F8D4     	 bmi .L35
+ 271 00a2 B2E7     	 b .L34
+ 272              	.L38:
+ 273 00a4 2023     	 mov r3,#32
+ 274 00a6 0A1C     	 mov r2,r1
+ 275 00a8 1B1B     	 sub r3,r3,r4
+ 276 00aa 9A40     	 lsl r2,r2,r3
+ 277 00ac E040     	 lsr r0,r0,r4
+ 278 00ae 1043     	 orr r0,r2
+ 279 00b0 D7E7     	 b .L39
+ 280              	.L45:
+ 281 00b2 0024     	 mov r4,#0
+ 282 00b4 BCE7     	 b .L36
+ 283              	.L51:
+ 284 00b6 C046     	 .align 2
+ 285              	.L50:
+ 286 00b8 00E1F505 	 .word 100000000
+ 288              	 .section .text.TIMER_GetInterruptStatus,"ax",%progbits
+ 289              	 .align 2
+ 290              	 .global TIMER_GetInterruptStatus
+ 291              	 .code 16
+ 292              	 .thumb_func
+ 294              	TIMER_GetInterruptStatus:
+ 295 0000 2122     	 mov r2,#33
+ 296 0002 825C     	 ldrb r2,[r0,r2]
+ 297 0004 031C     	 mov r3,r0
+ 298 0006 0020     	 mov r0,#0
+ 299 0008 002A     	 cmp r2,#0
+ 300 000a 04D1     	 bne .L53
+ 301 000c 5A69     	 ldr r2,[r3,#20]
+ 302 000e A023     	 mov r3,#160
+ 303 0010 D358     	 ldr r3,[r2,r3]
+ 304 0012 0130     	 add r0,r0,#1
+ 305 0014 1840     	 and r0,r3
+ 306              	.L53:
+ 307              	 
+ 308 0016 7047     	 bx lr
+ 310              	 .section .text.TIMER_ClearEvent,"ax",%progbits
+ 311              	 .align 2
+ 312              	 .global TIMER_ClearEvent
+ 313              	 .code 16
+ 314              	 .thumb_func
+ 316              	TIMER_ClearEvent:
+ 317 0000 2123     	 mov r3,#33
+ 318 0002 C35C     	 ldrb r3,[r0,r3]
+ 319 0004 002B     	 cmp r3,#0
+ 320 0006 03D1     	 bne .L55
+ 321 0008 0121     	 mov r1,#1
+ 322 000a 4269     	 ldr r2,[r0,#20]
+ 323 000c B033     	 add r3,r3,#176
+ 324 000e D150     	 str r1,[r2,r3]
+ 325              	.L55:
+ 326              	 
+ 327 0010 7047     	 bx lr
+ 329 0012 C046     	 .section .text.TIMER_GetTime,"ax",%progbits
+ 330              	 .align 2
+ 331              	 .global TIMER_GetTime
+ 332              	 .code 16
+ 333              	 .thumb_func
+ 335              	TIMER_GetTime:
+ 336 0000 2123     	 mov r3,#33
+ 337 0002 10B5     	 push {r4,lr}
+ 338 0004 C25C     	 ldrb r2,[r0,r3]
+ 339 0006 0023     	 mov r3,#0
+ 340 0008 002A     	 cmp r2,#0
+ 341 000a 17D1     	 bne .L58
+ 342 000c 9022     	 mov r2,#144
+ 343 000e 041C     	 mov r4,r0
+ 344 0010 4369     	 ldr r3,[r0,#20]
+ 345 0012 1206     	 lsl r2,r2,#24
+ 346 0014 186F     	 ldr r0,[r3,#112]
+ 347 0016 0021     	 mov r1,#0
+ 348 0018 0004     	 lsl r0,r0,#16
+ 349 001a 000C     	 lsr r0,r0,#16
+ 350 001c 0123     	 mov r3,#1
+ 351 001e 0130     	 add r0,r0,#1
+ 352 0020 FFF7FEFF 	 bl __aeabi_lmul
+ 353 0024 E269     	 ldr r2,[r4,#28]
+ 354 0026 2024     	 mov r4,#32
+ 355 0028 1379     	 ldrb r3,[r2,#4]
+ 356 002a 2022     	 mov r2,#32
+ 357 002c 1B07     	 lsl r3,r3,#28
+ 358 002e 1B0F     	 lsr r3,r3,#28
+ 359 0030 D31A     	 sub r3,r2,r3
+ 360 0032 6442     	 neg r4,r4
+ 361 0034 1C19     	 add r4,r3,r4
+ 362 0036 03D4     	 bmi .L59
+ 363 0038 0B1C     	 mov r3,r1
+ 364 003a E340     	 lsr r3,r3,r4
+ 365              	.L58:
+ 366 003c 181C     	 mov r0,r3
+ 367              	 
+ 368 003e 10BD     	 pop {r4,pc}
+ 369              	.L59:
+ 370 0040 D840     	 lsr r0,r0,r3
+ 371 0042 D21A     	 sub r2,r2,r3
+ 372 0044 9140     	 lsl r1,r1,r2
+ 373 0046 031C     	 mov r3,r0
+ 374 0048 0B43     	 orr r3,r1
+ 375 004a F7E7     	 b .L58
+ 377              	 .section .text.TIMER_Clear,"ax",%progbits
+ 378              	 .align 2
+ 379              	 .global TIMER_Clear
+ 380              	 .code 16
+ 381              	 .thumb_func
+ 383              	TIMER_Clear:
+ 384 0000 2622     	 mov r2,#38
+ 385 0002 825C     	 ldrb r2,[r0,r2]
+ 386 0004 031C     	 mov r3,r0
+ 387 0006 0120     	 mov r0,#1
+ 388 0008 002A     	 cmp r2,#0
+ 389 000a 07D0     	 beq .L63
+ 390 000c 2122     	 mov r2,#33
+ 391 000e 9A5C     	 ldrb r2,[r3,r2]
+ 392 0010 0020     	 mov r0,#0
+ 393 0012 002A     	 cmp r2,#0
+ 394 0014 02D1     	 bne .L63
+ 395 0016 5B69     	 ldr r3,[r3,#20]
+ 396 0018 0232     	 add r2,r2,#2
+ 397 001a 1A61     	 str r2,[r3,#16]
+ 398              	.L63:
+ 399              	 
+ 400 001c 7047     	 bx lr
+ 402 001e C046     	 .section .text.TIMER_CCU4_lInit,"ax",%progbits
+ 403              	 .align 2
+ 404              	 .global TIMER_CCU4_lInit
+ 405              	 .code 16
+ 406              	 .thumb_func
+ 408              	TIMER_CCU4_lInit:
+ 409 0000 70B5     	 push {r4,r5,r6,lr}
+ 410 0002 0125     	 mov r5,#1
+ 411 0004 041C     	 mov r4,r0
+ 412 0006 0069     	 ldr r0,[r0,#16]
+ 413 0008 FFF7FEFF 	 bl GLOBAL_CCU4_Init
+ 414 000c 291C     	 mov r1,r5
+ 415 000e 2369     	 ldr r3,[r4,#16]
+ 416 0010 061C     	 mov r6,r0
+ 417 0012 9A68     	 ldr r2,[r3,#8]
+ 418 0014 237E     	 ldrb r3,[r4,#24]
+ 419 0016 6069     	 ldr r0,[r4,#20]
+ 420 0018 9940     	 lsl r1,r1,r3
+ 421 001a D160     	 str r1,[r2,#12]
+ 422 001c E169     	 ldr r1,[r4,#28]
+ 423 001e FFF7FEFF 	 bl XMC_CCU4_SLICE_CompareInit
+ 424 0022 638C     	 ldrh r3,[r4,#34]
+ 425 0024 6069     	 ldr r0,[r4,#20]
+ 426 0026 E268     	 ldr r2,[r4,#12]
+ 427 0028 4363     	 str r3,[r0,#52]
+ 428 002a 0023     	 mov r3,#0
+ 429 002c C363     	 str r3,[r0,#60]
+ 430 002e 2369     	 ldr r3,[r4,#16]
+ 431 0030 9B68     	 ldr r3,[r3,#8]
+ 432 0032 1A61     	 str r2,[r3,#16]
+ 433 0034 2523     	 mov r3,#37
+ 434 0036 E35C     	 ldrb r3,[r4,r3]
+ 435 0038 002B     	 cmp r3,#0
+ 436 003a 0BD1     	 bne .L75
+ 437              	.L68:
+ 438 003c 0223     	 mov r3,#2
+ 439 003e 2622     	 mov r2,#38
+ 440 0040 0361     	 str r3,[r0,#16]
+ 441 0042 013B     	 sub r3,r3,#1
+ 442 0044 A354     	 strb r3,[r4,r2]
+ 443 0046 023A     	 sub r2,r2,#2
+ 444 0048 A25C     	 ldrb r2,[r4,r2]
+ 445 004a 002A     	 cmp r2,#0
+ 446 004c 00D0     	 beq .L69
+ 447 004e C360     	 str r3,[r0,#12]
+ 448              	.L69:
+ 449 0050 301C     	 mov r0,r6
+ 450              	 
+ 451 0052 70BD     	 pop {r4,r5,r6,pc}
+ 452              	.L75:
+ 453 0054 2023     	 mov r3,#32
+ 454 0056 0021     	 mov r1,#0
+ 455 0058 E25C     	 ldrb r2,[r4,r3]
+ 456 005a FFF7FEFF 	 bl XMC_CCU4_SLICE_SetInterruptNode
+ 457 005e A423     	 mov r3,#164
+ 458 0060 6069     	 ldr r0,[r4,#20]
+ 459 0062 C258     	 ldr r2,[r0,r3]
+ 460 0064 1543     	 orr r5,r2
+ 461 0066 C550     	 str r5,[r0,r3]
+ 462 0068 E8E7     	 b .L68
+ 464 006a C046     	 .section .text.TIMER_CCU4_lShadowTransfer,"ax",%progbits
+ 465              	 .align 2
+ 466              	 .global TIMER_CCU4_lShadowTransfer
+ 467              	 .code 16
+ 468              	 .thumb_func
+ 470              	TIMER_CCU4_lShadowTransfer:
+ 471 0000 4369     	 ldr r3,[r0,#20]
+ 472 0002 428C     	 ldrh r2,[r0,#34]
+ 473              	 
+ 474 0004 5A63     	 str r2,[r3,#52]
+ 475 0006 0022     	 mov r2,#0
+ 476 0008 DA63     	 str r2,[r3,#60]
+ 477 000a 0369     	 ldr r3,[r0,#16]
+ 478 000c C268     	 ldr r2,[r0,#12]
+ 479 000e 9B68     	 ldr r3,[r3,#8]
+ 480 0010 1A61     	 str r2,[r3,#16]
+ 481 0012 7047     	 bx lr
+ 483              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 timer.c
+    {standard input}:13     .text.TIMER_GetAppVersion:00000000 $t
+    {standard input}:18     .text.TIMER_GetAppVersion:00000000 TIMER_GetAppVersion
+    {standard input}:27     .text.TIMER_GetAppVersion:00000008 $d
+    {standard input}:30     .text.TIMER_Init:00000000 $t
+    {standard input}:35     .text.TIMER_Init:00000000 TIMER_Init
+    {standard input}:102    .text.TIMER_Start:00000000 $t
+    {standard input}:107    .text.TIMER_Start:00000000 TIMER_Start
+    {standard input}:127    .text.TIMER_Stop:00000000 $t
+    {standard input}:132    .text.TIMER_Stop:00000000 TIMER_Stop
+    {standard input}:156    .text.TIMER_GetTimerStatus:00000000 $t
+    {standard input}:161    .text.TIMER_GetTimerStatus:00000000 TIMER_GetTimerStatus
+    {standard input}:179    .text.TIMER_SetTimeInterval:00000000 $t
+    {standard input}:184    .text.TIMER_SetTimeInterval:00000000 TIMER_SetTimeInterval
+    {standard input}:286    .text.TIMER_SetTimeInterval:000000b8 $d
+    {standard input}:289    .text.TIMER_GetInterruptStatus:00000000 $t
+    {standard input}:294    .text.TIMER_GetInterruptStatus:00000000 TIMER_GetInterruptStatus
+    {standard input}:311    .text.TIMER_ClearEvent:00000000 $t
+    {standard input}:316    .text.TIMER_ClearEvent:00000000 TIMER_ClearEvent
+    {standard input}:330    .text.TIMER_GetTime:00000000 $t
+    {standard input}:335    .text.TIMER_GetTime:00000000 TIMER_GetTime
+    {standard input}:378    .text.TIMER_Clear:00000000 $t
+    {standard input}:383    .text.TIMER_Clear:00000000 TIMER_Clear
+    {standard input}:403    .text.TIMER_CCU4_lInit:00000000 $t
+    {standard input}:408    .text.TIMER_CCU4_lInit:00000000 TIMER_CCU4_lInit
+    {standard input}:465    .text.TIMER_CCU4_lShadowTransfer:00000000 $t
+    {standard input}:470    .text.TIMER_CCU4_lShadowTransfer:00000000 TIMER_CCU4_lShadowTransfer
+
+UNDEFINED SYMBOLS
+GLOBAL_CCU4_Init
+XMC_CCU4_SLICE_CompareInit
+XMC_CCU4_SLICE_SetInterruptNode
+__aeabi_lmul
+__aeabi_uldivmod
+XMC_CCU4_SLICE_SetPrescaler

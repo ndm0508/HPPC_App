@@ -1,0 +1,64 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 23,1
+   4              	 .eabi_attribute 24,1
+   5              	 .eabi_attribute 25,1
+   6              	 .eabi_attribute 26,1
+   7              	 .eabi_attribute 30,2
+   8              	 .eabi_attribute 34,0
+   9              	 .eabi_attribute 18,4
+  10              	 .code 16
+  11              	 .file "analog_io_conf.c"
+  12              	 .global ANALOG_IO_2
+  13              	 .global ANALOG_IO_1
+  14              	 .global ANALOG_IO_0
+  15              	 .section .bss.ANALOG_IO_1_state,"aw",%nobits
+  18              	ANALOG_IO_1_state:
+  19 0000 00       	 .space 1
+  20              	 .section .bss.ANALOG_IO_2_state,"aw",%nobits
+  23              	ANALOG_IO_2_state:
+  24 0000 00       	 .space 1
+  25              	 .section .rodata.ANALOG_IO_0,"a",%progbits
+  26              	 .align 2
+  29              	ANALOG_IO_0:
+  30 0000 00000000 	 .word 0
+  31 0004 00000000 	 .word ANALOG_IO_0_state
+  32 0008 00020440 	 .word 1074004480
+  33 000c 0A       	 .byte 10
+  34 000d 000000   	 .space 3
+  35              	 .section .rodata.ANALOG_IO_1,"a",%progbits
+  36              	 .align 2
+  39              	ANALOG_IO_1:
+  40 0000 00000000 	 .word 0
+  41 0004 00000000 	 .word ANALOG_IO_1_state
+  42 0008 00020440 	 .word 1074004480
+  43 000c 0B       	 .byte 11
+  44 000d 000000   	 .space 3
+  45              	 .section .rodata.ANALOG_IO_2,"a",%progbits
+  46              	 .align 2
+  49              	ANALOG_IO_2:
+  50 0000 00000000 	 .word 0
+  51 0004 00000000 	 .word ANALOG_IO_2_state
+  52 0008 00020440 	 .word 1074004480
+  53 000c 06       	 .byte 6
+  54 000d 000000   	 .space 3
+  55              	 .section .bss.ANALOG_IO_0_state,"aw",%nobits
+  58              	ANALOG_IO_0_state:
+  59 0000 00       	 .space 1
+  60              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 analog_io_conf.c
+    {standard input}:49     .rodata.ANALOG_IO_2:00000000 ANALOG_IO_2
+    {standard input}:39     .rodata.ANALOG_IO_1:00000000 ANALOG_IO_1
+    {standard input}:29     .rodata.ANALOG_IO_0:00000000 ANALOG_IO_0
+    {standard input}:18     .bss.ANALOG_IO_1_state:00000000 ANALOG_IO_1_state
+    {standard input}:19     .bss.ANALOG_IO_1_state:00000000 $d
+    {standard input}:23     .bss.ANALOG_IO_2_state:00000000 ANALOG_IO_2_state
+    {standard input}:24     .bss.ANALOG_IO_2_state:00000000 $d
+    {standard input}:26     .rodata.ANALOG_IO_0:00000000 $d
+    {standard input}:58     .bss.ANALOG_IO_0_state:00000000 ANALOG_IO_0_state
+    {standard input}:36     .rodata.ANALOG_IO_1:00000000 $d
+    {standard input}:46     .rodata.ANALOG_IO_2:00000000 $d
+    {standard input}:59     .bss.ANALOG_IO_0_state:00000000 $d
+
+NO UNDEFINED SYMBOLS

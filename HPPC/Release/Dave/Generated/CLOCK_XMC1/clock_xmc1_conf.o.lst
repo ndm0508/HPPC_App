@@ -1,0 +1,58 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 23,1
+   4              	 .eabi_attribute 24,1
+   5              	 .eabi_attribute 25,1
+   6              	 .eabi_attribute 26,1
+   7              	 .eabi_attribute 30,2
+   8              	 .eabi_attribute 34,0
+   9              	 .eabi_attribute 18,4
+  10              	 .code 16
+  11              	 .file "clock_xmc1_conf.c"
+  12              	 .section .text.SystemCoreClockSetup,"ax",%progbits
+  13              	 .align 2
+  14              	 .global SystemCoreClockSetup
+  15              	 .code 16
+  16              	 .thumb_func
+  18              	SystemCoreClockSetup:
+  19 0000 30B5     	 push {r4,r5,lr}
+  20 0002 85B0     	 sub sp,sp,#20
+  21 0004 01A8     	 add r0,sp,#4
+  22 0006 021C     	 mov r2,r0
+  23 0008 034B     	 ldr r3,.L2
+  24 000a 32CB     	 ldmia r3!,{r1,r4,r5}
+  25 000c 32C2     	 stmia r2!,{r1,r4,r5}
+  26 000e FFF7FEFF 	 bl XMC_SCU_CLOCK_Init
+  27 0012 05B0     	 add sp,sp,#20
+  28              	 
+  29 0014 30BD     	 pop {r4,r5,pc}
+  30              	.L3:
+  31 0016 C046     	 .align 2
+  32              	.L2:
+  33 0018 00000000 	 .word .LANCHOR0
+  35              	 .global CLOCK_XMC1_0
+  36              	 .section .bss.CLOCK_XMC1_0,"aw",%nobits
+  37              	 .align 2
+  40              	CLOCK_XMC1_0:
+  41 0000 00       	 .space 1
+  42 0001 000000   	 .section .rodata
+  43              	 .align 2
+  44              	 .set .LANCHOR0,.+0
+  45              	.LC0:
+  46 0000 00       	 .byte 0
+  47 0001 01       	 .byte 1
+  48 0002 0000     	 .space 2
+  49 0004 00000100 	 .word 65536
+  50 0008 00000000 	 .word 0
+  51              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 clock_xmc1_conf.c
+    {standard input}:13     .text.SystemCoreClockSetup:00000000 $t
+    {standard input}:18     .text.SystemCoreClockSetup:00000000 SystemCoreClockSetup
+    {standard input}:33     .text.SystemCoreClockSetup:00000018 $d
+    {standard input}:40     .bss.CLOCK_XMC1_0:00000000 CLOCK_XMC1_0
+    {standard input}:37     .bss.CLOCK_XMC1_0:00000000 $d
+    {standard input}:43     .rodata:00000000 $d
+
+UNDEFINED SYMBOLS
+XMC_SCU_CLOCK_Init

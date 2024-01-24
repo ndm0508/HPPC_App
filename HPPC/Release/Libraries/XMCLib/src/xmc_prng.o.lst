@@ -1,0 +1,90 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 23,1
+   4              	 .eabi_attribute 24,1
+   5              	 .eabi_attribute 25,1
+   6              	 .eabi_attribute 26,1
+   7              	 .eabi_attribute 30,2
+   8              	 .eabi_attribute 34,0
+   9              	 .eabi_attribute 18,4
+  10              	 .code 16
+  11              	 .file "xmc_prng.c"
+  12              	 .section .text.XMC_PRNG_Init,"ax",%progbits
+  13              	 .align 2
+  14              	 .global XMC_PRNG_Init
+  15              	 .code 16
+  16              	 .thumb_func
+  18              	XMC_PRNG_Init:
+  19 0000 0621     	 mov r1,#6
+  20 0002 70B5     	 push {r4,r5,r6,lr}
+  21 0004 1B4A     	 ldr r2,.L7
+  22 0006 061C     	 mov r6,r0
+  23 0008 9389     	 ldrh r3,[r2,#12]
+  24 000a 051C     	 mov r5,r0
+  25 000c 8B43     	 bic r3,r1
+  26 000e 0239     	 sub r1,r1,#2
+  27 0010 0B43     	 orr r3,r1
+  28 0012 9381     	 strh r3,[r2,#12]
+  29 0014 0823     	 mov r3,#8
+  30 0016 0124     	 mov r4,#1
+  31 0018 9189     	 ldrh r1,[r2,#12]
+  32 001a 82B0     	 sub sp,sp,#8
+  33 001c 0B43     	 orr r3,r1
+  34 001e 9381     	 strh r3,[r2,#12]
+  35 0020 0A36     	 add r6,r6,#10
+  36              	.L3:
+  37 0022 2B88     	 ldrh r3,[r5]
+  38 0024 1380     	 strh r3,[r2]
+  39              	.L2:
+  40 0026 9388     	 ldrh r3,[r2,#4]
+  41 0028 1249     	 ldr r1,.L7
+  42 002a 1C42     	 tst r4,r3
+  43 002c FBD0     	 beq .L2
+  44 002e 0235     	 add r5,r5,#2
+  45 0030 B542     	 cmp r5,r6
+  46 0032 F6D1     	 bne .L3
+  47 0034 0822     	 mov r2,#8
+  48 0036 8B89     	 ldrh r3,[r1,#12]
+  49 0038 9343     	 bic r3,r2
+  50 003a 8B81     	 strh r3,[r1,#12]
+  51 003c 6B46     	 mov r3,sp
+  52 003e 0A88     	 ldrh r2,[r1]
+  53 0040 92B2     	 uxth r2,r2
+  54 0042 DA80     	 strh r2,[r3,#6]
+  55 0044 0A88     	 ldrh r2,[r1]
+  56 0046 92B2     	 uxth r2,r2
+  57 0048 DA80     	 strh r2,[r3,#6]
+  58 004a 0A88     	 ldrh r2,[r1]
+  59 004c 92B2     	 uxth r2,r2
+  60 004e DA80     	 strh r2,[r3,#6]
+  61 0050 0C88     	 ldrh r4,[r1]
+  62 0052 DA88     	 ldrh r2,[r3,#6]
+  63 0054 2240     	 and r2,r4
+  64 0056 DA80     	 strh r2,[r3,#6]
+  65 0058 827A     	 ldrb r2,[r0,#10]
+  66 005a 0620     	 mov r0,#6
+  67 005c 8B89     	 ldrh r3,[r1,#12]
+  68 005e 5200     	 lsl r2,r2,#1
+  69 0060 8343     	 bic r3,r0
+  70 0062 1343     	 orr r3,r2
+  71 0064 8B81     	 strh r3,[r1,#12]
+  72 0066 8B89     	 ldrh r3,[r1,#12]
+  73 0068 1840     	 and r0,r3
+  74 006a 431E     	 sub r3,r0,#1
+  75 006c 9841     	 sbc r0,r0,r3
+  76 006e C0B2     	 uxtb r0,r0
+  77 0070 02B0     	 add sp,sp,#8
+  78              	 
+  79 0072 70BD     	 pop {r4,r5,r6,pc}
+  80              	.L8:
+  81              	 .align 2
+  82              	.L7:
+  83 0074 00000248 	 .word 1208090624
+  85              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc_prng.c
+    {standard input}:13     .text.XMC_PRNG_Init:00000000 $t
+    {standard input}:18     .text.XMC_PRNG_Init:00000000 XMC_PRNG_Init
+    {standard input}:83     .text.XMC_PRNG_Init:00000074 $d
+
+NO UNDEFINED SYMBOLS

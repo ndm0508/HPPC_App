@@ -1,0 +1,470 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 23,1
+   4              	 .eabi_attribute 24,1
+   5              	 .eabi_attribute 25,1
+   6              	 .eabi_attribute 26,1
+   7              	 .eabi_attribute 30,2
+   8              	 .eabi_attribute 34,0
+   9              	 .eabi_attribute 18,4
+  10              	 .code 16
+  11              	 .file "main.c"
+  12              	 .section .text.startup.main,"ax",%progbits
+  13              	 .align 2
+  14              	 .global main
+  15              	 .code 16
+  16              	 .thumb_func
+  18              	main:
+  19 0000 F0B5     	 push {r4,r5,r6,r7,lr}
+  20 0002 5F46     	 mov r7,fp
+  21 0004 5646     	 mov r6,r10
+  22 0006 4D46     	 mov r5,r9
+  23 0008 4446     	 mov r4,r8
+  24 000a F0B4     	 push {r4,r5,r6,r7}
+  25 000c 83B0     	 sub sp,sp,#12
+  26 000e FFF7FEFF 	 bl DAVE_Init
+  27 0012 0028     	 cmp r0,#0
+  28 0014 00D0     	 beq .L2
+  29              	.L8:
+  30 0016 FEE7     	 b .L8
+  31              	.L2:
+  32 0018 FA20     	 mov r0,#250
+  33 001a 8000     	 lsl r0,r0,#2
+  34 001c FFF7FEFF 	 bl System_Delay
+  35 0020 FFF7FEFF 	 bl System_Initialize
+  36 0024 1648     	 ldr r0,.L10
+  37 0026 FFF7FEFF 	 bl TIMER_Start
+  38 002a 164B     	 ldr r3,.L10+4
+  39 002c 1649     	 ldr r1,.L10+8
+  40 002e 181C     	 mov r0,r3
+  41 0030 0122     	 mov r2,#1
+  42 0032 9B46     	 mov fp,r3
+  43 0034 FFF7FEFF 	 bl UART_Receive
+  44 0038 144B     	 ldr r3,.L10+12
+  45 003a 154C     	 ldr r4,.L10+16
+  46 003c 9A46     	 mov r10,r3
+  47 003e 154B     	 ldr r3,.L10+20
+  48 0040 154F     	 ldr r7,.L10+24
+  49 0042 9946     	 mov r9,r3
+  50 0044 154B     	 ldr r3,.L10+28
+  51 0046 164E     	 ldr r6,.L10+32
+  52 0048 9846     	 mov r8,r3
+  53 004a 164D     	 ldr r5,.L10+36
+  54              	.L4:
+  55 004c 4B46     	 mov r3,r9
+  56 004e 1A88     	 ldrh r2,[r3]
+  57 0050 4346     	 mov r3,r8
+  58 0052 3988     	 ldrh r1,[r7]
+  59 0054 1B88     	 ldrh r3,[r3]
+  60 0056 0091     	 str r1,[sp]
+  61 0058 3188     	 ldrh r1,[r6]
+  62 005a 201C     	 mov r0,r4
+  63 005c 0191     	 str r1,[sp,#4]
+  64 005e 5146     	 mov r1,r10
+  65 0060 FFF7FEFF 	 bl sprintf
+  66 0064 2B78     	 ldrb r3,[r5]
+  67 0066 002B     	 cmp r3,#0
+  68 0068 F0D0     	 beq .L4
+  69 006a 201C     	 mov r0,r4
+  70 006c FFF7FEFF 	 bl strlen
+  71 0070 211C     	 mov r1,r4
+  72 0072 021C     	 mov r2,r0
+  73 0074 5846     	 mov r0,fp
+  74 0076 FFF7FEFF 	 bl UART_Transmit
+  75 007a 0023     	 mov r3,#0
+  76 007c 2B70     	 strb r3,[r5]
+  77 007e E5E7     	 b .L4
+  78              	.L11:
+  79              	 .align 2
+  80              	.L10:
+  81 0080 00000000 	 .word ZOH_TIMER
+  82 0084 00000000 	 .word UART_0
+  83 0088 00000000 	 .word uart_receive_buffer
+  84 008c 00000000 	 .word .LC4
+  85 0090 00000000 	 .word uart_transmit_buffer
+  86 0094 00000000 	 .word seconds_counter
+  87 0098 00000000 	 .word ADC_Ibat_Non_Offset
+  88 009c 00000000 	 .word ADC_Vbat_Average_32768_Cycles
+  89 00a0 00000000 	 .word Instant_Mode
+  90 00a4 00000000 	 .word .LANCHOR0
+  92              	 .section .text.CCU40_0_IRQHandler,"ax",%progbits
+  93              	 .align 2
+  94              	 .global CCU40_0_IRQHandler
+  95              	 .code 16
+  96              	 .thumb_func
+  98              	CCU40_0_IRQHandler:
+  99 0000 F0B5     	 push {r4,r5,r6,r7,lr}
+ 100 0002 4F46     	 mov r7,r9
+ 101 0004 4646     	 mov r6,r8
+ 102 0006 C0B4     	 push {r6,r7}
+ 103 0008 634B     	 ldr r3,.L52
+ 104 000a 83B0     	 sub sp,sp,#12
+ 105 000c 1B88     	 ldrh r3,[r3]
+ 106 000e 634C     	 ldr r4,.L52+4
+ 107 0010 022B     	 cmp r3,#2
+ 108 0012 00D1     	 bne .LCB98
+ 109 0014 AEE0     	 b .L47
+ 110              	.LCB98:
+ 111 0016 D12B     	 cmp r3,#209
+ 112 0018 00D1     	 bne .LCB100
+ 113 001a 76E0     	 b .L48
+ 114              	.LCB100:
+ 115 001c 0B2B     	 cmp r3,#11
+ 116 001e 00D1     	 bne .LCB102
+ 117 0020 8AE0     	 b .L49
+ 118              	.LCB102:
+ 119 0022 002B     	 cmp r3,#0
+ 120 0024 00D0     	 beq .LCB104
+ 121 0026 79E0     	 b .L17
+ 122              	.LCB104:
+ 123 0028 2278     	 ldrb r2,[r4]
+ 124 002a 002A     	 cmp r2,#0
+ 125 002c 00D0     	 beq .LCB107
+ 126 002e 73E0     	 b .L42
+ 127              	.LCB107:
+ 128              	.L14:
+ 129 0030 C021     	 mov r1,#192
+ 130 0032 8900     	 lsl r1,r1,#2
+ 131 0034 8C46     	 mov ip,r1
+ 132 0036 5A4B     	 ldr r3,.L52+8
+ 133 0038 201C     	 mov r0,r4
+ 134 003a 9A68     	 ldr r2,[r3,#8]
+ 135 003c 1B68     	 ldr r3,[r3]
+ 136 003e 9B78     	 ldrb r3,[r3,#2]
+ 137 0040 1B07     	 lsl r3,r3,#28
+ 138 0042 9B0E     	 lsr r3,r3,#26
+ 139 0044 6344     	 add r3,r3,ip
+ 140 0046 9D58     	 ldr r5,[r3,r2]
+ 141 0048 564B     	 ldr r3,.L52+12
+ 142 004a AEB2     	 uxth r6,r5
+ 143 004c 9A68     	 ldr r2,[r3,#8]
+ 144 004e 1B68     	 ldr r3,[r3]
+ 145 0050 311C     	 mov r1,r6
+ 146 0052 9B78     	 ldrb r3,[r3,#2]
+ 147 0054 2D04     	 lsl r5,r5,#16
+ 148 0056 1B07     	 lsl r3,r3,#28
+ 149 0058 9B0E     	 lsr r3,r3,#26
+ 150 005a 6344     	 add r3,r3,ip
+ 151 005c 9F58     	 ldr r7,[r3,r2]
+ 152 005e 524B     	 ldr r3,.L52+16
+ 153 0060 BFB2     	 uxth r7,r7
+ 154 0062 9A68     	 ldr r2,[r3,#8]
+ 155 0064 1B68     	 ldr r3,[r3]
+ 156 0066 2D0C     	 lsr r5,r5,#16
+ 157 0068 9B78     	 ldrb r3,[r3,#2]
+ 158 006a 1B07     	 lsl r3,r3,#28
+ 159 006c 9B0E     	 lsr r3,r3,#26
+ 160 006e 6344     	 add r3,r3,ip
+ 161 0070 9B58     	 ldr r3,[r3,r2]
+ 162 0072 6A46     	 mov r2,sp
+ 163 0074 D380     	 strh r3,[r2,#6]
+ 164 0076 9846     	 mov r8,r3
+ 165 0078 D388     	 ldrh r3,[r2,#6]
+ 166 007a 9946     	 mov r9,r3
+ 167 007c 1A1C     	 mov r2,r3
+ 168 007e 3B1C     	 mov r3,r7
+ 169 0080 FFF7FEFF 	 bl Check_Protection
+ 170 0084 201C     	 mov r0,r4
+ 171 0086 311C     	 mov r1,r6
+ 172 0088 3B1C     	 mov r3,r7
+ 173 008a 4A46     	 mov r2,r9
+ 174 008c FFF7FEFF 	 bl Check_Charging_Mode
+ 175 0090 201C     	 mov r0,r4
+ 176 0092 311C     	 mov r1,r6
+ 177 0094 4A46     	 mov r2,r9
+ 178 0096 FFF7FEFF 	 bl Set_CC_CV_Control_Mode
+ 179 009a 2278     	 ldrb r2,[r4]
+ 180 009c 434B     	 ldr r3,.L52+20
+ 181 009e 8020     	 mov r0,#128
+ 182 00a0 1A80     	 strh r2,[r3]
+ 183 00a2 8122     	 mov r2,#129
+ 184 00a4 424B     	 ldr r3,.L52+24
+ 185 00a6 9200     	 lsl r2,r2,#2
+ 186 00a8 DB68     	 ldr r3,[r3,#12]
+ 187 00aa 8000     	 lsl r0,r0,#2
+ 188 00ac D968     	 ldr r1,[r3,#12]
+ 189 00ae 8026     	 mov r6,#128
+ 190 00b0 8B58     	 ldr r3,[r1,r2]
+ 191 00b2 404C     	 ldr r4,.L52+28
+ 192 00b4 0343     	 orr r3,r0
+ 193 00b6 8B50     	 str r3,[r1,r2]
+ 194 00b8 3F49     	 ldr r1,.L52+32
+ 195 00ba 4048     	 ldr r0,.L52+36
+ 196 00bc 0B68     	 ldr r3,[r1]
+ 197 00be 0268     	 ldr r2,[r0]
+ 198 00c0 9C46     	 mov ip,r3
+ 199 00c2 4346     	 mov r3,r8
+ 200 00c4 1B04     	 lsl r3,r3,#16
+ 201 00c6 1B0C     	 lsr r3,r3,#16
+ 202 00c8 9A18     	 add r2,r3,r2
+ 203 00ca 2388     	 ldrh r3,[r4]
+ 204 00cc 6544     	 add r5,r5,ip
+ 205 00ce 0133     	 add r3,r3,#1
+ 206 00d0 9BB2     	 uxth r3,r3
+ 207 00d2 0D60     	 str r5,[r1]
+ 208 00d4 0260     	 str r2,[r0]
+ 209 00d6 2380     	 strh r3,[r4]
+ 210 00d8 3602     	 lsl r6,r6,#8
+ 211 00da B342     	 cmp r3,r6
+ 212 00dc 33D0     	 beq .L50
+ 213              	.L18:
+ 214 00de 384A     	 ldr r2,.L52+40
+ 215 00e0 3849     	 ldr r1,.L52+44
+ 216 00e2 1388     	 ldrh r3,[r2]
+ 217 00e4 0133     	 add r3,r3,#1
+ 218 00e6 9BB2     	 uxth r3,r3
+ 219 00e8 1380     	 strh r3,[r2]
+ 220 00ea 8B42     	 cmp r3,r1
+ 221 00ec 08D1     	 bne .L12
+ 222 00ee 3649     	 ldr r1,.L52+48
+ 223 00f0 0B88     	 ldrh r3,[r1]
+ 224 00f2 0133     	 add r3,r3,#1
+ 225 00f4 0B80     	 strh r3,[r1]
+ 226 00f6 0121     	 mov r1,#1
+ 227 00f8 344B     	 ldr r3,.L52+52
+ 228 00fa 1970     	 strb r1,[r3]
+ 229 00fc 0023     	 mov r3,#0
+ 230 00fe 1380     	 strh r3,[r2]
+ 231              	.L12:
+ 232 0100 03B0     	 add sp,sp,#12
+ 233              	 
+ 234 0102 0CBC     	 pop {r2,r3}
+ 235 0104 9046     	 mov r8,r2
+ 236 0106 9946     	 mov r9,r3
+ 237 0108 F0BD     	 pop {r4,r5,r6,r7,pc}
+ 238              	.L48:
+ 239 010a 2278     	 ldrb r2,[r4]
+ 240 010c D22A     	 cmp r2,#210
+ 241 010e 00D1     	 bne .LCB237
+ 242 0110 8EE7     	 b .L14
+ 243              	.LCB237:
+ 244 0112 0C2A     	 cmp r2,#12
+ 245 0114 00D1     	 bne .LCB239
+ 246 0116 8BE7     	 b .L14
+ 247              	.LCB239:
+ 248              	.L42:
+ 249 0118 2370     	 strb r3,[r4]
+ 250 011a 89E7     	 b .L14
+ 251              	.L17:
+ 252 011c 0D2B     	 cmp r3,#13
+ 253 011e 00D0     	 beq .LCB247
+ 254 0120 86E7     	 b .L14
+ 255              	.LCB247:
+ 256 0122 2278     	 ldrb r2,[r4]
+ 257 0124 111C     	 mov r1,r2
+ 258 0126 0D39     	 sub r1,r1,#13
+ 259 0128 0529     	 cmp r1,#5
+ 260 012a 00D8     	 bhi .LCB253
+ 261 012c 80E7     	 b .L14
+ 262              	.LCB253:
+ 263 012e 092A     	 cmp r2,#9
+ 264 0130 00D1     	 bne .LCB255
+ 265 0132 7DE7     	 b .L14
+ 266              	.LCB255:
+ 267              	.L51:
+ 268 0134 2370     	 strb r3,[r4]
+ 269 0136 7BE7     	 b .L14
+ 270              	.L49:
+ 271 0138 2278     	 ldrb r2,[r4]
+ 272 013a 0A3A     	 sub r2,r2,#10
+ 273 013c 012A     	 cmp r2,#1
+ 274 013e 00D8     	 bhi .LCB266
+ 275 0140 76E7     	 b .L14
+ 276              	.LCB266:
+ 277 0142 2370     	 strb r3,[r4]
+ 278 0144 74E7     	 b .L14
+ 279              	.L50:
+ 280 0146 224B     	 ldr r3,.L52+56
+ 281 0148 ED0B     	 lsr r5,r5,#15
+ 282 014a 1D80     	 strh r5,[r3]
+ 283 014c D30B     	 lsr r3,r2,#15
+ 284 014e 214A     	 ldr r2,.L52+60
+ 285 0150 9BB2     	 uxth r3,r3
+ 286 0152 9342     	 cmp r3,r2
+ 287 0154 19D9     	 bls .L19
+ 288 0156 1D1C     	 mov r5,r3
+ 289 0158 1F4A     	 ldr r2,.L52+64
+ 290 015a DC35     	 add r5,r5,#220
+ 291 015c 1580     	 strh r5,[r2]
+ 292 015e 1F4A     	 ldr r2,.L52+68
+ 293 0160 9446     	 mov ip,r2
+ 294 0162 6344     	 add r3,r3,ip
+ 295 0164 9BB2     	 uxth r3,r3
+ 296              	.L20:
+ 297 0166 1E4A     	 ldr r2,.L52+72
+ 298 0168 1380     	 strh r3,[r2]
+ 299 016a 0023     	 mov r3,#0
+ 300 016c 0B60     	 str r3,[r1]
+ 301 016e 0360     	 str r3,[r0]
+ 302 0170 2380     	 strh r3,[r4]
+ 303 0172 B4E7     	 b .L18
+ 304              	.L47:
+ 305 0174 2278     	 ldrb r2,[r4]
+ 306 0176 022A     	 cmp r2,#2
+ 307 0178 00D1     	 bne .LCB302
+ 308 017a 59E7     	 b .L14
+ 309              	.LCB302:
+ 310 017c 911F     	 sub r1,r2,#6
+ 311 017e 0129     	 cmp r1,#1
+ 312 0180 00D8     	 bhi .LCB306
+ 313 0182 55E7     	 b .L14
+ 314              	.LCB306:
+ 315 0184 092A     	 cmp r2,#9
+ 316 0186 D5D1     	 bne .L51
+ 317 0188 52E7     	 b .L14
+ 318              	.L19:
+ 319 018a 134A     	 ldr r2,.L52+64
+ 320 018c 1380     	 strh r3,[r2]
+ 321 018e 154A     	 ldr r2,.L52+76
+ 322 0190 D31A     	 sub r3,r2,r3
+ 323 0192 9BB2     	 uxth r3,r3
+ 324 0194 E7E7     	 b .L20
+ 325              	.L53:
+ 326 0196 C046     	 .align 2
+ 327              	.L52:
+ 328 0198 00000000 	 .word Command_Mode
+ 329 019c 00000000 	 .word .LANCHOR1
+ 330 01a0 00000000 	 .word ADC_MEASUREMENT_Vbat_sens_handle
+ 331 01a4 00000000 	 .word ADC_MEASUREMENT_Vin_sens_handle
+ 332 01a8 00000000 	 .word ADC_MEASUREMENT_Ibat_sens_handle
+ 333 01ac 00000000 	 .word Instant_Mode
+ 334 01b0 00000000 	 .word ADC_MEASUREMENT_0
+ 335 01b4 00000000 	 .word .LANCHOR4
+ 336 01b8 00000000 	 .word .LANCHOR2
+ 337 01bc 00000000 	 .word .LANCHOR3
+ 338 01c0 00000000 	 .word .LANCHOR5
+ 339 01c4 50C30000 	 .word 50000
+ 340 01c8 00000000 	 .word seconds_counter
+ 341 01cc 00000000 	 .word .LANCHOR0
+ 342 01d0 00000000 	 .word ADC_Vbat_Average_32768_Cycles
+ 343 01d4 86060000 	 .word 1670
+ 344 01d8 00000000 	 .word ADC_Ibat_Average_32768_Cycles
+ 345 01dc 55FAFFFF 	 .word -1451
+ 346 01e0 00000000 	 .word ADC_Ibat_Non_Offset
+ 347 01e4 87060000 	 .word 1671
+ 349              	 .section .text.UART_End_of_Receive_Call_Back,"ax",%progbits
+ 350              	 .align 2
+ 351              	 .global UART_End_of_Receive_Call_Back
+ 352              	 .code 16
+ 353              	 .thumb_func
+ 355              	UART_End_of_Receive_Call_Back:
+ 356 0000 10B5     	 push {r4,lr}
+ 357 0002 054C     	 ldr r4,.L55
+ 358 0004 0122     	 mov r2,#1
+ 359 0006 211C     	 mov r1,r4
+ 360 0008 0448     	 ldr r0,.L55+4
+ 361 000a FFF7FEFF 	 bl UART_Receive
+ 362 000e 2278     	 ldrb r2,[r4]
+ 363 0010 034B     	 ldr r3,.L55+8
+ 364              	 
+ 365 0012 1A80     	 strh r2,[r3]
+ 366 0014 10BD     	 pop {r4,pc}
+ 367              	.L56:
+ 368 0016 C046     	 .align 2
+ 369              	.L55:
+ 370 0018 00000000 	 .word uart_receive_buffer
+ 371 001c 00000000 	 .word UART_0
+ 372 0020 00000000 	 .word Command_Mode
+ 374              	 .global Update_Uart
+ 375              	 .comm ADC_Ibat_Non_Offset,2,2
+ 376              	 .comm ADC_Ibat_Average_32768_Cycles,2,2
+ 377              	 .comm ADC_Vbat_Average_32768_Cycles,2,2
+ 378              	 .comm last_seconds_counter,2,2
+ 379              	 .comm seconds_counter,2,2
+ 380              	 .comm Command_Mode,2,2
+ 381              	 .comm Instant_Mode,2,2
+ 382              	 .comm test,2,2
+ 383              	 .comm measure,2,2
+ 384              	 .comm uart_receive_buffer,1,4
+ 385              	 .comm uart_transmit_buffer,100,4
+ 386              	 .section .bss.Charging_Mode.10211,"aw",%nobits
+ 387              	 .set .LANCHOR1,.+0
+ 390              	Charging_Mode.10211:
+ 391 0000 00       	 .space 1
+ 392              	 .section .bss.Cycles_of_Average_Cal.10214,"aw",%nobits
+ 393              	 .align 1
+ 394              	 .set .LANCHOR4,.+0
+ 397              	Cycles_of_Average_Cal.10214:
+ 398 0000 0000     	 .space 2
+ 399              	 .section .rodata.str1.4,"aMS",%progbits,1
+ 400              	 .align 2
+ 401              	.LC4:
+ 402 0000 52756E74 	 .ascii "Runtime = %ds, Vbat = %d, Ibat = %d, Mode %d\015\012"
+ 402      696D6520 
+ 402      3D202564 
+ 402      732C2056 
+ 402      62617420 
+ 403 002e 00       	 .ascii "\000"
+ 404 002f 00       	 .section .bss.ADC_Vbat_Sum_32768_Cycles.10212,"aw",%nobits
+ 405              	 .align 2
+ 406              	 .set .LANCHOR2,.+0
+ 409              	ADC_Vbat_Sum_32768_Cycles.10212:
+ 410 0000 00000000 	 .space 4
+ 411              	 .section .bss.Cycles_of_Seconds_Count.10215,"aw",%nobits
+ 412              	 .align 1
+ 413              	 .set .LANCHOR5,.+0
+ 416              	Cycles_of_Seconds_Count.10215:
+ 417 0000 0000     	 .space 2
+ 418              	 .section .bss.ADC_Ibat_Sum_32768_Cycles.10213,"aw",%nobits
+ 419              	 .align 2
+ 420              	 .set .LANCHOR3,.+0
+ 423              	ADC_Ibat_Sum_32768_Cycles.10213:
+ 424 0000 00000000 	 .space 4
+ 425              	 .section .data.Update_Uart,"aw",%progbits
+ 426              	 .set .LANCHOR0,.+0
+ 429              	Update_Uart:
+ 430 0000 01       	 .byte 1
+ 431              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+    {standard input}:13     .text.startup.main:00000000 $t
+    {standard input}:18     .text.startup.main:00000000 main
+    {standard input}:81     .text.startup.main:00000080 $d
+                            *COM*:00000001 uart_receive_buffer
+                            *COM*:00000064 uart_transmit_buffer
+                            *COM*:00000002 seconds_counter
+                            *COM*:00000002 ADC_Ibat_Non_Offset
+                            *COM*:00000002 ADC_Vbat_Average_32768_Cycles
+                            *COM*:00000002 Instant_Mode
+    {standard input}:93     .text.CCU40_0_IRQHandler:00000000 $t
+    {standard input}:98     .text.CCU40_0_IRQHandler:00000000 CCU40_0_IRQHandler
+    {standard input}:328    .text.CCU40_0_IRQHandler:00000198 $d
+                            *COM*:00000002 Command_Mode
+                            *COM*:00000002 ADC_Ibat_Average_32768_Cycles
+    {standard input}:350    .text.UART_End_of_Receive_Call_Back:00000000 $t
+    {standard input}:355    .text.UART_End_of_Receive_Call_Back:00000000 UART_End_of_Receive_Call_Back
+    {standard input}:370    .text.UART_End_of_Receive_Call_Back:00000018 $d
+    {standard input}:429    .data.Update_Uart:00000000 Update_Uart
+                            *COM*:00000002 last_seconds_counter
+                            *COM*:00000002 test
+                            *COM*:00000002 measure
+    {standard input}:390    .bss.Charging_Mode.10211:00000000 Charging_Mode.10211
+    {standard input}:391    .bss.Charging_Mode.10211:00000000 $d
+    {standard input}:393    .bss.Cycles_of_Average_Cal.10214:00000000 $d
+    {standard input}:397    .bss.Cycles_of_Average_Cal.10214:00000000 Cycles_of_Average_Cal.10214
+    {standard input}:400    .rodata.str1.4:00000000 $d
+    {standard input}:405    .bss.ADC_Vbat_Sum_32768_Cycles.10212:00000000 $d
+    {standard input}:409    .bss.ADC_Vbat_Sum_32768_Cycles.10212:00000000 ADC_Vbat_Sum_32768_Cycles.10212
+    {standard input}:412    .bss.Cycles_of_Seconds_Count.10215:00000000 $d
+    {standard input}:416    .bss.Cycles_of_Seconds_Count.10215:00000000 Cycles_of_Seconds_Count.10215
+    {standard input}:419    .bss.ADC_Ibat_Sum_32768_Cycles.10213:00000000 $d
+    {standard input}:423    .bss.ADC_Ibat_Sum_32768_Cycles.10213:00000000 ADC_Ibat_Sum_32768_Cycles.10213
+
+UNDEFINED SYMBOLS
+DAVE_Init
+System_Delay
+System_Initialize
+TIMER_Start
+UART_Receive
+sprintf
+strlen
+UART_Transmit
+ZOH_TIMER
+UART_0
+Check_Protection
+Check_Charging_Mode
+Set_CC_CV_Control_Mode
+ADC_MEASUREMENT_Vbat_sens_handle
+ADC_MEASUREMENT_Vin_sens_handle
+ADC_MEASUREMENT_Ibat_sens_handle
+ADC_MEASUREMENT_0

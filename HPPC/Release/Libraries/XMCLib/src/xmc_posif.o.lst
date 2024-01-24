@@ -1,0 +1,222 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 23,1
+   4              	 .eabi_attribute 24,1
+   5              	 .eabi_attribute 25,1
+   6              	 .eabi_attribute 26,1
+   7              	 .eabi_attribute 30,2
+   8              	 .eabi_attribute 34,0
+   9              	 .eabi_attribute 18,4
+  10              	 .code 16
+  11              	 .file "xmc_posif.c"
+  12              	 .section .text.XMC_POSIF_Enable,"ax",%progbits
+  13              	 .align 2
+  14              	 .global XMC_POSIF_Enable
+  15              	 .code 16
+  16              	 .thumb_func
+  18              	XMC_POSIF_Enable:
+  19 0000 08B5     	 push {r3,lr}
+  20 0002 044B     	 ldr r3,.L5
+  21 0004 9842     	 cmp r0,r3
+  22 0006 00D0     	 beq .L4
+  23              	.L1:
+  24              	 
+  25 0008 08BD     	 pop {r3,pc}
+  26              	.L4:
+  27 000a 8020     	 mov r0,#128
+  28 000c FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+  29 0010 FAE7     	 b .L1
+  30              	.L6:
+  31 0012 C046     	 .align 2
+  32              	.L5:
+  33 0014 00000150 	 .word 1342242816
+  35              	 .section .text.XMC_POSIF_Disable,"ax",%progbits
+  36              	 .align 2
+  37              	 .global XMC_POSIF_Disable
+  38              	 .code 16
+  39              	 .thumb_func
+  41              	XMC_POSIF_Disable:
+  42 0000 08B5     	 push {r3,lr}
+  43 0002 044B     	 ldr r3,.L10
+  44 0004 9842     	 cmp r0,r3
+  45 0006 00D0     	 beq .L9
+  46              	.L7:
+  47              	 
+  48 0008 08BD     	 pop {r3,pc}
+  49              	.L9:
+  50 000a 8020     	 mov r0,#128
+  51 000c FFF7FEFF 	 bl XMC_SCU_CLOCK_GatePeripheralClock
+  52 0010 FAE7     	 b .L7
+  53              	.L11:
+  54 0012 C046     	 .align 2
+  55              	.L10:
+  56 0014 00000150 	 .word 1342242816
+  58              	 .section .text.XMC_POSIF_Init,"ax",%progbits
+  59              	 .align 2
+  60              	 .global XMC_POSIF_Init
+  61              	 .code 16
+  62              	 .thumb_func
+  64              	XMC_POSIF_Init:
+  65 0000 38B5     	 push {r3,r4,r5,lr}
+  66 0002 074B     	 ldr r3,.L15
+  67 0004 041C     	 mov r4,r0
+  68 0006 0D1C     	 mov r5,r1
+  69 0008 9842     	 cmp r0,r3
+  70 000a 04D0     	 beq .L14
+  71              	.L13:
+  72 000c 0323     	 mov r3,#3
+  73 000e E360     	 str r3,[r4,#12]
+  74 0010 2B68     	 ldr r3,[r5]
+  75              	 
+  76 0012 2360     	 str r3,[r4]
+  77 0014 38BD     	 pop {r3,r4,r5,pc}
+  78              	.L14:
+  79 0016 8020     	 mov r0,#128
+  80 0018 FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+  81 001c F6E7     	 b .L13
+  82              	.L16:
+  83 001e C046     	 .align 2
+  84              	.L15:
+  85 0020 00000150 	 .word 1342242816
+  87              	 .section .text.XMC_POSIF_HSC_Init,"ax",%progbits
+  88              	 .align 2
+  89              	 .global XMC_POSIF_HSC_Init
+  90              	 .code 16
+  91              	 .thumb_func
+  93              	XMC_POSIF_HSC_Init:
+  94 0000 0268     	 ldr r2,[r0]
+  95 0002 031C     	 mov r3,r0
+  96 0004 0120     	 mov r0,#1
+  97 0006 9207     	 lsl r2,r2,#30
+  98 0008 04D1     	 bne .L18
+  99 000a 1868     	 ldr r0,[r3]
+ 100 000c 0A68     	 ldr r2,[r1]
+ 101 000e 0243     	 orr r2,r0
+ 102 0010 0020     	 mov r0,#0
+ 103 0012 1A60     	 str r2,[r3]
+ 104              	.L18:
+ 105              	 
+ 106 0014 7047     	 bx lr
+ 108 0016 C046     	 .section .text.XMC_POSIF_QD_Init,"ax",%progbits
+ 109              	 .align 2
+ 110              	 .global XMC_POSIF_QD_Init
+ 111              	 .code 16
+ 112              	 .thumb_func
+ 114              	XMC_POSIF_QD_Init:
+ 115 0000 0268     	 ldr r2,[r0]
+ 116 0002 031C     	 mov r3,r0
+ 117 0004 0120     	 mov r0,#1
+ 118 0006 D207     	 lsl r2,r2,#31
+ 119 0008 07D5     	 bpl .L21
+ 120 000a 0A78     	 ldrb r2,[r1]
+ 121 000c 1868     	 ldr r0,[r3]
+ 122 000e 9200     	 lsl r2,r2,#2
+ 123 0010 0243     	 orr r2,r0
+ 124 0012 0020     	 mov r0,#0
+ 125 0014 1A60     	 str r2,[r3]
+ 126 0016 4A68     	 ldr r2,[r1,#4]
+ 127 0018 1A66     	 str r2,[r3,#96]
+ 128              	.L21:
+ 129              	 
+ 130 001a 7047     	 bx lr
+ 132              	 .section .text.XMC_POSIF_MCM_Init,"ax",%progbits
+ 133              	 .align 2
+ 134              	 .global XMC_POSIF_MCM_Init
+ 135              	 .code 16
+ 136              	 .thumb_func
+ 138              	XMC_POSIF_MCM_Init:
+ 139 0000 0323     	 mov r3,#3
+ 140 0002 0268     	 ldr r2,[r0]
+ 141 0004 1340     	 and r3,r2
+ 142 0006 012B     	 cmp r3,#1
+ 143 0008 05D0     	 beq .L25
+ 144 000a 0268     	 ldr r2,[r0]
+ 145 000c 0B68     	 ldr r3,[r1]
+ 146 000e 1343     	 orr r3,r2
+ 147 0010 0360     	 str r3,[r0]
+ 148 0012 0020     	 mov r0,#0
+ 149              	.L24:
+ 150              	 
+ 151 0014 7047     	 bx lr
+ 152              	.L25:
+ 153 0016 0120     	 mov r0,#1
+ 154 0018 FCE7     	 b .L24
+ 156 001a C046     	 .section .text.XMC_POSIF_SelectInputSource,"ax",%progbits
+ 157              	 .align 2
+ 158              	 .global XMC_POSIF_SelectInputSource
+ 159              	 .code 16
+ 160              	 .thumb_func
+ 162              	XMC_POSIF_SelectInputSource:
+ 163 0000 70B5     	 push {r4,r5,r6,lr}
+ 164 0002 151C     	 mov r5,r2
+ 165 0004 C026     	 mov r6,#192
+ 166 0006 1A1C     	 mov r2,r3
+ 167 0008 B601     	 lsl r6,r6,#6
+ 168 000a 0368     	 ldr r3,[r0]
+ 169 000c 1203     	 lsl r2,r2,#12
+ 170 000e 084C     	 ldr r4,.L27
+ 171 0010 3240     	 and r2,r6
+ 172 0012 1C40     	 and r4,r3
+ 173 0014 131C     	 mov r3,r2
+ 174 0016 2343     	 orr r3,r4
+ 175 0018 C024     	 mov r4,#192
+ 176 001a AA02     	 lsl r2,r5,#10
+ 177 001c 2401     	 lsl r4,r4,#4
+ 178 001e 2240     	 and r2,r4
+ 179 0020 C024     	 mov r4,#192
+ 180 0022 0902     	 lsl r1,r1,#8
+ 181 0024 A400     	 lsl r4,r4,#2
+ 182 0026 1A43     	 orr r2,r3
+ 183 0028 2140     	 and r1,r4
+ 184 002a 1143     	 orr r1,r2
+ 185 002c 0160     	 str r1,[r0]
+ 186              	 
+ 187 002e 70BD     	 pop {r4,r5,r6,pc}
+ 188              	.L28:
+ 189              	 .align 2
+ 190              	.L27:
+ 191 0030 FFC0FFFF 	 .word -16129
+ 193              	 .section .text.XMC_POSIF_SetInterruptNode,"ax",%progbits
+ 194              	 .align 2
+ 195              	 .global XMC_POSIF_SetInterruptNode
+ 196              	 .code 16
+ 197              	 .thumb_func
+ 199              	XMC_POSIF_SetInterruptNode:
+ 200 0000 10B5     	 push {r4,lr}
+ 201 0002 0124     	 mov r4,#1
+ 202 0004 1031     	 add r1,r1,#16
+ 203 0006 8C40     	 lsl r4,r4,r1
+ 204 0008 8A40     	 lsl r2,r2,r1
+ 205 000a 436F     	 ldr r3,[r0,#116]
+ 206              	 
+ 207 000c A343     	 bic r3,r4
+ 208 000e 1343     	 orr r3,r2
+ 209 0010 4367     	 str r3,[r0,#116]
+ 210 0012 10BD     	 pop {r4,pc}
+ 212              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc_posif.c
+    {standard input}:13     .text.XMC_POSIF_Enable:00000000 $t
+    {standard input}:18     .text.XMC_POSIF_Enable:00000000 XMC_POSIF_Enable
+    {standard input}:33     .text.XMC_POSIF_Enable:00000014 $d
+    {standard input}:36     .text.XMC_POSIF_Disable:00000000 $t
+    {standard input}:41     .text.XMC_POSIF_Disable:00000000 XMC_POSIF_Disable
+    {standard input}:56     .text.XMC_POSIF_Disable:00000014 $d
+    {standard input}:59     .text.XMC_POSIF_Init:00000000 $t
+    {standard input}:64     .text.XMC_POSIF_Init:00000000 XMC_POSIF_Init
+    {standard input}:85     .text.XMC_POSIF_Init:00000020 $d
+    {standard input}:88     .text.XMC_POSIF_HSC_Init:00000000 $t
+    {standard input}:93     .text.XMC_POSIF_HSC_Init:00000000 XMC_POSIF_HSC_Init
+    {standard input}:109    .text.XMC_POSIF_QD_Init:00000000 $t
+    {standard input}:114    .text.XMC_POSIF_QD_Init:00000000 XMC_POSIF_QD_Init
+    {standard input}:133    .text.XMC_POSIF_MCM_Init:00000000 $t
+    {standard input}:138    .text.XMC_POSIF_MCM_Init:00000000 XMC_POSIF_MCM_Init
+    {standard input}:157    .text.XMC_POSIF_SelectInputSource:00000000 $t
+    {standard input}:162    .text.XMC_POSIF_SelectInputSource:00000000 XMC_POSIF_SelectInputSource
+    {standard input}:191    .text.XMC_POSIF_SelectInputSource:00000030 $d
+    {standard input}:194    .text.XMC_POSIF_SetInterruptNode:00000000 $t
+    {standard input}:199    .text.XMC_POSIF_SetInterruptNode:00000000 XMC_POSIF_SetInterruptNode
+
+UNDEFINED SYMBOLS
+XMC_SCU_CLOCK_UngatePeripheralClock
+XMC_SCU_CLOCK_GatePeripheralClock

@@ -1,0 +1,60 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 23,1
+   4              	 .eabi_attribute 24,1
+   5              	 .eabi_attribute 25,1
+   6              	 .eabi_attribute 26,1
+   7              	 .eabi_attribute 30,2
+   8              	 .eabi_attribute 34,0
+   9              	 .eabi_attribute 18,4
+  10              	 .code 16
+  11              	 .file "analog_io.c"
+  12              	 .section .text.ANALOG_IO_GetAppVersion,"ax",%progbits
+  13              	 .align 2
+  14              	 .global ANALOG_IO_GetAppVersion
+  15              	 .code 16
+  16              	 .thumb_func
+  18              	ANALOG_IO_GetAppVersion:
+  19 0000 0148     	 ldr r0,.L2
+  20 0002 82B0     	 sub sp,sp,#8
+  21 0004 02B0     	 add sp,sp,#8
+  22              	 
+  23 0006 7047     	 bx lr
+  24              	.L3:
+  25              	 .align 2
+  26              	.L2:
+  27 0008 04000C00 	 .word 786436
+  29              	 .section .text.ANALOG_IO_Init,"ax",%progbits
+  30              	 .align 2
+  31              	 .global ANALOG_IO_Init
+  32              	 .code 16
+  33              	 .thumb_func
+  35              	ANALOG_IO_Init:
+  36 0000 4368     	 ldr r3,[r0,#4]
+  37 0002 10B5     	 push {r4,lr}
+  38 0004 1A78     	 ldrb r2,[r3]
+  39 0006 002A     	 cmp r2,#0
+  40 0008 07D1     	 bne .L5
+  41 000a 0268     	 ldr r2,[r0]
+  42 000c 002A     	 cmp r2,#0
+  43 000e 02D0     	 beq .L6
+  44 0010 041C     	 mov r4,r0
+  45 0012 9047     	 blx r2
+  46 0014 6368     	 ldr r3,[r4,#4]
+  47              	.L6:
+  48 0016 0122     	 mov r2,#1
+  49 0018 1A70     	 strb r2,[r3]
+  50              	.L5:
+  51 001a 0020     	 mov r0,#0
+  52              	 
+  53 001c 10BD     	 pop {r4,pc}
+  55 001e C046     	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 analog_io.c
+    {standard input}:13     .text.ANALOG_IO_GetAppVersion:00000000 $t
+    {standard input}:18     .text.ANALOG_IO_GetAppVersion:00000000 ANALOG_IO_GetAppVersion
+    {standard input}:27     .text.ANALOG_IO_GetAppVersion:00000008 $d
+    {standard input}:30     .text.ANALOG_IO_Init:00000000 $t
+    {standard input}:35     .text.ANALOG_IO_Init:00000000 ANALOG_IO_Init
+
+NO UNDEFINED SYMBOLS

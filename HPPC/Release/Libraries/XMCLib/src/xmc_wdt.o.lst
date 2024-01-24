@@ -1,0 +1,73 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 23,1
+   4              	 .eabi_attribute 24,1
+   5              	 .eabi_attribute 25,1
+   6              	 .eabi_attribute 26,1
+   7              	 .eabi_attribute 30,2
+   8              	 .eabi_attribute 34,0
+   9              	 .eabi_attribute 18,4
+  10              	 .code 16
+  11              	 .file "xmc_wdt.c"
+  12              	 .section .text.XMC_WDT_Enable,"ax",%progbits
+  13              	 .align 2
+  14              	 .global XMC_WDT_Enable
+  15              	 .code 16
+  16              	 .thumb_func
+  18              	XMC_WDT_Enable:
+  19 0000 8020     	 mov r0,#128
+  20 0002 08B5     	 push {r3,lr}
+  21 0004 8000     	 lsl r0,r0,#2
+  22 0006 FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+  23              	 
+  24 000a 08BD     	 pop {r3,pc}
+  26              	 .section .text.XMC_WDT_Disable,"ax",%progbits
+  27              	 .align 2
+  28              	 .global XMC_WDT_Disable
+  29              	 .code 16
+  30              	 .thumb_func
+  32              	XMC_WDT_Disable:
+  33 0000 8020     	 mov r0,#128
+  34 0002 08B5     	 push {r3,lr}
+  35 0004 8000     	 lsl r0,r0,#2
+  36 0006 FFF7FEFF 	 bl XMC_SCU_CLOCK_GatePeripheralClock
+  37              	 
+  38 000a 08BD     	 pop {r3,pc}
+  40              	 .section .text.XMC_WDT_Init,"ax",%progbits
+  41              	 .align 2
+  42              	 .global XMC_WDT_Init
+  43              	 .code 16
+  44              	 .thumb_func
+  46              	XMC_WDT_Init:
+  47 0000 10B5     	 push {r4,lr}
+  48 0002 041C     	 mov r4,r0
+  49 0004 8020     	 mov r0,#128
+  50 0006 8000     	 lsl r0,r0,#2
+  51 0008 FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+  52 000c A268     	 ldr r2,[r4,#8]
+  53 000e 034B     	 ldr r3,.L4
+  54              	 
+  55 0010 5A60     	 str r2,[r3,#4]
+  56 0012 6268     	 ldr r2,[r4,#4]
+  57 0014 1A61     	 str r2,[r3,#16]
+  58 0016 2268     	 ldr r2,[r4]
+  59 0018 5A61     	 str r2,[r3,#20]
+  60 001a 10BD     	 pop {r4,pc}
+  61              	.L5:
+  62              	 .align 2
+  63              	.L4:
+  64 001c 00000240 	 .word 1073872896
+  66              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc_wdt.c
+    {standard input}:13     .text.XMC_WDT_Enable:00000000 $t
+    {standard input}:18     .text.XMC_WDT_Enable:00000000 XMC_WDT_Enable
+    {standard input}:27     .text.XMC_WDT_Disable:00000000 $t
+    {standard input}:32     .text.XMC_WDT_Disable:00000000 XMC_WDT_Disable
+    {standard input}:41     .text.XMC_WDT_Init:00000000 $t
+    {standard input}:46     .text.XMC_WDT_Init:00000000 XMC_WDT_Init
+    {standard input}:64     .text.XMC_WDT_Init:0000001c $d
+
+UNDEFINED SYMBOLS
+XMC_SCU_CLOCK_UngatePeripheralClock
+XMC_SCU_CLOCK_GatePeripheralClock

@@ -1,0 +1,123 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 23,1
+   4              	 .eabi_attribute 24,1
+   5              	 .eabi_attribute 25,1
+   6              	 .eabi_attribute 26,1
+   7              	 .eabi_attribute 30,2
+   8              	 .eabi_attribute 34,0
+   9              	 .eabi_attribute 18,4
+  10              	 .code 16
+  11              	 .file "xmc1_gpio.c"
+  12              	 .section .text.XMC_GPIO_Init,"ax",%progbits
+  13              	 .align 2
+  14              	 .global XMC_GPIO_Init
+  15              	 .code 16
+  16              	 .thumb_func
+  18              	XMC_GPIO_Init:
+  19 0000 F0B5     	 push {r4,r5,r6,r7,lr}
+  20 0002 0325     	 mov r5,#3
+  21 0004 2C1C     	 mov r4,r5
+  22 0006 0C40     	 and r4,r1
+  23 0008 E400     	 lsl r4,r4,#3
+  24 000a 4746     	 mov r7,r8
+  25 000c A046     	 mov r8,r4
+  26 000e F824     	 mov r4,#248
+  27 0010 4646     	 mov r6,r8
+  28 0012 B440     	 lsl r4,r4,r6
+  29 0014 8B08     	 lsr r3,r1,#2
+  30 0016 9B00     	 lsl r3,r3,#2
+  31 0018 C318     	 add r3,r0,r3
+  32 001a 80B4     	 push {r7}
+  33 001c 1F69     	 ldr r7,[r3,#16]
+  34 001e 0426     	 mov r6,#4
+  35 0020 A743     	 bic r7,r4
+  36 0022 1F61     	 str r7,[r3,#16]
+  37 0024 4F00     	 lsl r7,r1,#1
+  38 0026 BD40     	 lsl r5,r5,r7
+  39 0028 446F     	 ldr r4,[r0,#116]
+  40 002a AC43     	 bic r4,r5
+  41 002c 0725     	 mov r5,#7
+  42 002e 0D40     	 and r5,r1
+  43 0030 AD00     	 lsl r5,r5,#2
+  44 0032 AE40     	 lsl r6,r6,r5
+  45 0034 4467     	 str r4,[r0,#116]
+  46 0036 CC08     	 lsr r4,r1,#3
+  47 0038 A400     	 lsl r4,r4,#2
+  48 003a 0419     	 add r4,r0,r4
+  49 003c 276C     	 ldr r7,[r4,#64]
+  50 003e B743     	 bic r7,r6
+  51 0040 2764     	 str r7,[r4,#64]
+  52 0042 5678     	 ldrb r6,[r2,#1]
+  53 0044 276C     	 ldr r7,[r4,#64]
+  54 0046 AE40     	 lsl r6,r6,r5
+  55 0048 351C     	 mov r5,r6
+  56 004a 3D43     	 orr r5,r7
+  57 004c 2564     	 str r5,[r4,#64]
+  58 004e 0C4C     	 ldr r4,.L6
+  59 0050 A042     	 cmp r0,r4
+  60 0052 0ED0     	 beq .L5
+  61              	.L2:
+  62 0054 1478     	 ldrb r4,[r2]
+  63 0056 65B2     	 sxtb r5,r4
+  64 0058 002D     	 cmp r5,#0
+  65 005a 02DA     	 bge .L3
+  66 005c 5268     	 ldr r2,[r2,#4]
+  67 005e 8A40     	 lsl r2,r2,r1
+  68 0060 4260     	 str r2,[r0,#4]
+  69              	.L3:
+  70 0062 4146     	 mov r1,r8
+  71 0064 8C40     	 lsl r4,r4,r1
+  72 0066 1A69     	 ldr r2,[r3,#16]
+  73              	 
+  74 0068 1443     	 orr r4,r2
+  75 006a 1C61     	 str r4,[r3,#16]
+  76 006c 04BC     	 pop {r2}
+  77 006e 9046     	 mov r8,r2
+  78 0070 F0BD     	 pop {r4,r5,r6,r7,pc}
+  79              	.L5:
+  80 0072 0125     	 mov r5,#1
+  81 0074 8D40     	 lsl r5,r5,r1
+  82 0076 046E     	 ldr r4,[r0,#96]
+  83 0078 AC43     	 bic r4,r5
+  84 007a 0466     	 str r4,[r0,#96]
+  85 007c EAE7     	 b .L2
+  86              	.L7:
+  87 007e C046     	 .align 2
+  88              	.L6:
+  89 0080 00020440 	 .word 1074004480
+  91              	 .section .text.XMC_GPIO_SetInputHysteresis,"ax",%progbits
+  92              	 .align 2
+  93              	 .global XMC_GPIO_SetInputHysteresis
+  94              	 .code 16
+  95              	 .thumb_func
+  97              	XMC_GPIO_SetInputHysteresis:
+  98 0000 10B5     	 push {r4,lr}
+  99 0002 0724     	 mov r4,#7
+ 100 0004 CB08     	 lsr r3,r1,#3
+ 101 0006 2140     	 and r1,r4
+ 102 0008 8900     	 lsl r1,r1,#2
+ 103 000a 8A40     	 lsl r2,r2,r1
+ 104 000c 033C     	 sub r4,r4,#3
+ 105 000e 8C40     	 lsl r4,r4,r1
+ 106 0010 111C     	 mov r1,r2
+ 107 0012 9B00     	 lsl r3,r3,#2
+ 108 0014 C018     	 add r0,r0,r3
+ 109 0016 036C     	 ldr r3,[r0,#64]
+ 110              	 
+ 111 0018 A343     	 bic r3,r4
+ 112 001a 0364     	 str r3,[r0,#64]
+ 113 001c 036C     	 ldr r3,[r0,#64]
+ 114 001e 1943     	 orr r1,r3
+ 115 0020 0164     	 str r1,[r0,#64]
+ 116 0022 10BD     	 pop {r4,pc}
+ 118              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc1_gpio.c
+    {standard input}:13     .text.XMC_GPIO_Init:00000000 $t
+    {standard input}:18     .text.XMC_GPIO_Init:00000000 XMC_GPIO_Init
+    {standard input}:89     .text.XMC_GPIO_Init:00000080 $d
+    {standard input}:92     .text.XMC_GPIO_SetInputHysteresis:00000000 $t
+    {standard input}:97     .text.XMC_GPIO_SetInputHysteresis:00000000 XMC_GPIO_SetInputHysteresis
+
+NO UNDEFINED SYMBOLS

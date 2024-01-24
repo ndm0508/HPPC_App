@@ -1,0 +1,36 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 23,1
+   4              	 .eabi_attribute 24,1
+   5              	 .eabi_attribute 25,1
+   6              	 .eabi_attribute 26,1
+   7              	 .eabi_attribute 30,2
+   8              	 .eabi_attribute 34,0
+   9              	 .eabi_attribute 18,4
+  10              	 .code 16
+  11              	 .file "xmc1_eru.c"
+  12              	 .section .text.XMC_ERU_Enable,"ax",%progbits
+  13              	 .align 2
+  14              	 .global XMC_ERU_Enable
+  15              	 .code 16
+  16              	 .thumb_func
+  18              	XMC_ERU_Enable:
+  19              	 
+  20 0000 7047     	 bx lr
+  22 0002 C046     	 .section .text.XMC_ERU_Disable,"ax",%progbits
+  23              	 .align 2
+  24              	 .global XMC_ERU_Disable
+  25              	 .code 16
+  26              	 .thumb_func
+  28              	XMC_ERU_Disable:
+  29              	 
+  30 0000 7047     	 bx lr
+  32 0002 C046     	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc1_eru.c
+    {standard input}:13     .text.XMC_ERU_Enable:00000000 $t
+    {standard input}:18     .text.XMC_ERU_Enable:00000000 XMC_ERU_Enable
+    {standard input}:23     .text.XMC_ERU_Disable:00000000 $t
+    {standard input}:28     .text.XMC_ERU_Disable:00000000 XMC_ERU_Disable
+
+NO UNDEFINED SYMBOLS
